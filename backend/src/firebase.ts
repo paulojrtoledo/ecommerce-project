@@ -6,7 +6,7 @@ import path from "path";
 dotenv.config();
 
 // Pega o caminho da chave do .env
-const serviceAccountPath = path.resolve(__dirname, "../firebase-service/firebase-service-key.json");
+const serviceAccountPath = path.resolve(__dirname, "../firebase-service/firebase-service-key-new.json");
 
 // Lê e transforma em objeto
 const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, "utf-8"));
