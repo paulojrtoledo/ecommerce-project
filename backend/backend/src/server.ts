@@ -15,17 +15,6 @@ app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
 
-// retorna detalhes dos produtos
-app.get("/products", async (req, res) => {
-  try {
-    const snapshot = await db.collection("products").get();
-    const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ message: "Erro ao listar produtos", error });
-  }
-});
-
 // retorna detalhes de um produto específico
 app.get("/products/:id", async (req, res) => {
     const reqId = req.params.id; // Firestore usa string como ID
