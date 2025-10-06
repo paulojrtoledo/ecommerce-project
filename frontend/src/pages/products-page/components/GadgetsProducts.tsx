@@ -54,7 +54,11 @@ const products = [
   },
 ];
 
-export default function HardwareProducts() {
+interface GadgetsProductsProps {
+  id?: string;
+}
+
+export default function GadgetsProducts(props: GadgetsProductsProps) {
     const theme = useTheme();
     const isDarkMode = theme.palette.mode === "dark";
   
@@ -65,7 +69,7 @@ export default function HardwareProducts() {
   };
 
   return (
-    <Box id="GadgetsProducts" sx={{ py: 4 }}>
+    <Box id={props.id} sx={{ py: 4 }}>
       <Typography
         component="p"
         variant="subtitle2"

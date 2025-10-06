@@ -58,7 +58,6 @@ export default function AppAppBar() {
                 size="small"
                 component="a"
                 href="/produtos"
-                target="_blank"
                 rel="noopener noreferrer"
               >
                 Produtos
@@ -117,7 +116,6 @@ export default function AppAppBar() {
               size="small"
               component="a"
               href="/meu-carrinho"
-              target="_blank"
               rel="noopener noreferrer"
             >
               Carrinho

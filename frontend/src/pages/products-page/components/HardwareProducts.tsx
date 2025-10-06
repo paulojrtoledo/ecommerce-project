@@ -53,14 +53,17 @@ const products = [
   },
 ];
 
-export default function HardwareProducts() {
+interface HardwareProductsProps {
+  id?: string;
+}
+
+export default function HardwareProducts(props: HardwareProductsProps) {
   const handleAddToCart = (productName: string) => {
     console.log(`Adicionado: ${productName}`);
   };
 
   return (
-    <Box
-      id="hero"
+    <Box id={props.id}
       sx={(theme) => ({
         width: "100%",
         backgroundRepeat: "no-repeat",

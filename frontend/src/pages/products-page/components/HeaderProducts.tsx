@@ -50,19 +50,39 @@ export default function HeaderProducts() {
         <StyledToolbar variant="dense" disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
             <LogoProducts />
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 26, gap: 6 }}>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 16, gap: 6 }}>
               <Button>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <Button
+                    variant="text"
+                    color="info"
+                    size="small"
+                    component="a"
+                    href="#hardwareproducts"
+                  >
                   <span>Computação</span>
                   <span>&</span>
                   <span>Hardware</span>
+                  </Button>
                 </Box>
               </Button>
 
-              <Button variant="text" color="info" size="small">
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                component="a"
+                href="#gadgets"
+              >
                 Periféricos <br /> e <br /> Acessórios
               </Button>
-              <Button variant="text" color="info" size="small">
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                component="a"
+                href="#smartdevicesproducts"
+              >
                 Dispositivos <br /> Inteligentes
               </Button>
             </Box>
@@ -82,9 +102,8 @@ export default function HeaderProducts() {
               size="small"
               component="a"
               href="/meu-carrinho"
-              target="_blank"
               rel="noopener noreferrer"
-              >
+            >
               Carrinho
             </Button>
             <Button color="primary" variant="contained" size="small">

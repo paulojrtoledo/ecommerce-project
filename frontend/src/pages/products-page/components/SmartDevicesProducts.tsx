@@ -54,14 +54,19 @@ const products = [
 
 ];
 
-export default function HardwareProducts() {
+interface SmartDevicesProps {
+  id?: string;
+}
+
+
+export default function SmartDevicesProducts(props: SmartDevicesProps) {
   const handleAddToCart = (productName: string) => {
     // Implementar lógica do carrinho
     console.log(`Adicionado: ${productName}`);
   };
 
   return (
-    <Box
+    <Box id={props.id}
       sx={{
         width: '100%',
         py: 8,

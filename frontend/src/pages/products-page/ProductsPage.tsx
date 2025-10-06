@@ -5,10 +5,10 @@ import AppTheme from '../shared-theme/AppTheme';
 import HeaderProducts from './components/HeaderProducts';
 import HardwareProducts from './components/HardwareProducts';
 import SmartDevicesProducts from './components/SmartDevicesProducts';
-import NatureTechCloudProducts from './components/NatureTechCloudProducts';
+import NatureTechCloud from '../home-page/components/NatureTechCloud';
 import GadgetsProducts from './components/GadgetsProducts';
-import FAQProducts from './components/FAQProducts';
-import FooterProducts from './components/FooterProducts';
+import FAQ from '../home-page/components/FAQ';
+import Footer from '../home-page/components/Footer';
 
 export default function ProductsPage(props: { disableCustomTheme?: boolean }) {
   return (
@@ -16,18 +16,18 @@ export default function ProductsPage(props: { disableCustomTheme?: boolean }) {
       <CssBaseline enableColorScheme />
 
       <HeaderProducts />
-      <HardwareProducts />
+      <HardwareProducts id="hardwareproducts" />
       <div>
         <Divider />
-        <GadgetsProducts />
+        <GadgetsProducts id="gadgets" />
         <Divider />
-        <SmartDevicesProducts />
+        <SmartDevicesProducts id="smartdevicesproducts" />
         <Divider />
-        <NatureTechCloudProducts />
+        <NatureTechCloud />
         <Divider />
-        <FAQProducts />
+        <FAQ />
         <Divider />
-        <FooterProducts />
+        <Footer />
       </div>
     </AppTheme>
   );
