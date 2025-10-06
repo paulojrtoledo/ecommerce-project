@@ -25,32 +25,32 @@ const products = [
   {
     name: 'Headset Wild Nature Pro',
     price: 'R$ 1.250,00',
-    image: '/produtos/headset.jpg', // Atualize com seu caminho
+    image: '/produtos/headset.jpg', 
   },
   {
     name: 'Teclado Silent Tech',
     price: 'R$ 900,00',
-    image: '/produtos/teclado.jpg', // Atualize com seu caminho
+    image: '/produtos/teclado.jpg', 
   },
   {
     name: 'Mouse Precision v1',
     price: 'R$ 200,00',
-    image: '/produtos/mouse.jpg', // Atualize com seu caminho
+    image: '/produtos/mouse.jpg', 
   },
   {
     name: 'Interface de Áudio Tech Pro',
     price: 'R$ 435,00',
-    image: '/produtos/interface.jpg', // Atualize com seu caminho
+    image: '/produtos/interface.jpg', 
   },
   {
     name: 'Controladora MIDI Function Tech',
     price: 'R$ 900,00',
-    image: '/produtos/controladora.jpg', // Atualize com seu caminho
+    image: '/produtos/controladora.jpg', 
   },
   {
     name: 'Docking Station NTA',
     price: 'R$ 280,00',
-    image: '/produtos/docking-station.jpg', // Atualize com seu caminho
+    image: '/produtos/docking-station.jpg', 
   },
 ];
 
@@ -83,8 +83,6 @@ export default function HardwareProducts() {
         >
           Periféricos e Acessórios
         </Typography>
-
-        {/* 🔹 SEU TEXTO DESCRITIVO AQUI */}
 
         <Typography
           variant="body1"

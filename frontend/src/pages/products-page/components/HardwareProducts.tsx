@@ -71,21 +71,19 @@ export default function HardwareProducts() {
       })}
     >
       <Container maxWidth="lg">
-        {/* TÍTULO PRINCIPAL ÚNICO */}
         <Typography
           variant="h4"
           component="h2"
           align="center"
           gutterBottom
           sx={{ 
-            mb: 4, // Reduzi a margem inferior
-            pt: 24, // Adicionei padding top para afastar do header
+            mb: 4, 
+            pt: 24, 
           }}
         >
           Computação & Hardware
         </Typography>
 
-        {/* SUBTÍTULO DESCRITIVO */}
         <Typography
           variant="body1"
           align="center"
@@ -94,7 +92,7 @@ export default function HardwareProducts() {
             mx: 'auto',
             mb: 6,
             color: 'text.secondary',
-            fontSize: '1.1rem', // Tamanho levemente aumentado
+            fontSize: '1.1rem', 
           }}
         >
           Descubra os melhores componentes para montar seu setup dos sonhos.
@@ -102,7 +100,6 @@ export default function HardwareProducts() {
           Produtos testados e aprovados com garantia Nature Tech.
         </Typography>
 
-        {/* GRID DE PRODUTOS */}
         <Grid container spacing={4}>
           {products.map((product, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>

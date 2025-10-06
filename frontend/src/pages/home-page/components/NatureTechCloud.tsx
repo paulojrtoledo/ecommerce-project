@@ -62,13 +62,17 @@ const tiers = [
   },
 ];
 
-export default function NatureTechCloud() {
+interface NatureTechCloudProps {
+  id?: string;
+}
+
+export default function NatureTechCloud(props: NatureTechCloudProps) {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
 
   return (
+    <Box id={props.id}>
     <Container
-      id="pricing"
       sx={{
         pt: { xs: 4, sm: 12 },
         pb: { xs: 8, sm: 16 },
@@ -218,5 +222,6 @@ export default function NatureTechCloud() {
         ))}
       </Grid>
     </Container>
+    </Box>
   );
 }

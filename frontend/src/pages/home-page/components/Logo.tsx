@@ -1,21 +1,19 @@
 import * as React from "react";
 import { Box, Typography } from "@mui/material";
-import { Link } from "react-router-dom"; // IMPORTANTE
+import { Link } from "react-router-dom"; 
 
 export default function Logo() {
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-      {/* Ícone PNG */}
       <img
-        src="/icons/nature-tech-icon.png" // coloque o PNG na pasta "public/icons"
+        src="/icons/nature-tech-icon.png" 
         alt="Nature Tech logo"
         style={{ width: 32, height: 32 }}
       />
 
-      {/* Nome do site */}
       <Typography
-        component={Link} // transforma em Link
-        to="/" // sempre volta pra página inicial
+        component={Link} 
+        to="/" 
         variant="body1"
         sx={{ 
           fontWeight: "bold", 

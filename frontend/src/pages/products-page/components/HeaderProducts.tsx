@@ -68,7 +68,7 @@ export default function HeaderProducts() {
             </Box>
           </Box>
 
-          {/* Ações lado direito desktop */}
+          {/* Ações do lado direito desktop */}
           <Box
             sx={{
               display: { xs: 'none', md: 'flex' },

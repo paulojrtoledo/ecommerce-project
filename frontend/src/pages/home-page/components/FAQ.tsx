@@ -8,7 +8,11 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export default function FAQ() {
+interface FAQProps {
+  id?: string;
+}
+
+export default function FAQ(props: FAQProps) {
   const [expanded, setExpanded] = React.useState<string[]>([]);
 
   const handleChange =
@@ -21,8 +25,8 @@ export default function FAQ() {
     };
 
   return (
+     <Box id={props.id}>
     <Container
-      id="faq"
       sx={{
         pt: { xs: 4, sm: 12 },
         pb: { xs: 8, sm: 16 },
@@ -153,5 +157,6 @@ export default function FAQ() {
         </Accordion>
       </Box>
     </Container>
+    </Box>
   );
 }

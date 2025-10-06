@@ -5,14 +5,12 @@ import { Link } from "react-router-dom";
 export default function LogoProducts() {
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-      {/* Ícone PNG */}
       <img
         src="/icons/nature-tech-icon.png"
         alt="Nature Tech logo"
         style={{ width: 32, height: 32 }}
       />
 
-      {/* Nome do site */}
       <Typography
         component={Link}
         to="/"
@@ -21,8 +19,8 @@ export default function LogoProducts() {
           fontWeight: "bold", 
           color: "text.primary",
           textDecoration: "none",
-          fontSize: "1rem", // Tamanho original
-          lineHeight: 1.5, // Altura de linha original
+          fontSize: "1rem", 
+          lineHeight: 1.5, 
           "&:hover": {
             opacity: 0.8,
           }, 

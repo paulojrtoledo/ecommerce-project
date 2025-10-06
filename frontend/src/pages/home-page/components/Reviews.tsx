@@ -72,14 +72,18 @@ const logoStyle: React.CSSProperties = {
   opacity: 0.3,
 };
 
-export default function Reviews() {
+interface ReviewsProps {
+  id?: string;
+}
+
+export default function Reviews(props: ReviewsProps) {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
   const logos = isDarkMode ? darkModeLogos : lightModeLogos;
 
   return (
+    <Box id={props.id}>
     <Container
-      id="reviews"
       sx={{
         pt: { xs: 4, sm: 12 },
         pb: { xs: 8, sm: 16 },
@@ -150,5 +154,6 @@ export default function Reviews() {
         ))}
       </Grid>
     </Container>
+    </Box>
   );
 }

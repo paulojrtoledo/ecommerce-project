@@ -1,5 +1,3 @@
-// frontend/src/pages/home-page/components/Hero.tsx
-
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -12,13 +10,11 @@ import Typography from "@mui/material/Typography";
 import visuallyHidden from "@mui/utils/visuallyHidden";
 import { styled } from "@mui/material/styles";
 
-// Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation, Pagination } from "swiper/modules";
 
-// 🔹 Suas imagens na pasta public/
 const images = [
   "/banner-30-desconto.png",
   "/novidade-monitor.png",

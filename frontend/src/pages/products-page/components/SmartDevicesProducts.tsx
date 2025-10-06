@@ -24,32 +24,32 @@ const products = [
   {
     name: 'Hub Doméstico NTA',
     price: 'R$ 4.150,00',
-    image: '/produtos/hub.jpg', // Atualize com seu caminho
+    image: '/produtos/hub.jpg', 
   },
   {
     name: 'Smart Watch GetFree',
     price: 'R$ 890,00',
-    image: '/produtos/smartwatch.jpg', // Atualize com seu caminho
+    image: '/produtos/smartwatch.jpg', 
   },
   {
     name: 'Câmera Precision Nature',
     price: 'R$ 670,00',
-    image: '/produtos/camera.jpg', // Atualize com seu caminho
+    image: '/produtos/camera.jpg', 
   },
   {
     name: 'Fone de Ouvido NT True',
     price: 'R$ 260,00',
-    image: '/produtos/fone-de-ouvido.jpg', // Atualize com seu caminho
+    image: '/produtos/fone-de-ouvido.jpg', 
   },
   {
     name: 'Home Alarme v1',
     price: 'R$ 790,00',
-    image: '/produtos/home-alarme.jpg', // Atualize com seu caminho
+    image: '/produtos/home-alarme.jpg', 
   },
   {
     name: 'Sensores Smart NTA',
     price: 'R$ 1100,00',
-    image: '/produtos/sensores-smart.jpg', // Atualize com seu caminho
+    image: '/produtos/sensores-smart.jpg', 
   },
 
 ];
@@ -78,8 +78,6 @@ export default function HardwareProducts() {
         >
           Dispositivos Inteligentes
         </Typography>
-
-        {/* 🔹 SEU TEXTO DESCRITIVO AQUI */}
 
         <Typography
           variant="body1"

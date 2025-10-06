@@ -23,13 +23,13 @@ export default function HomePage(props: { disableCustomTheme?: boolean }) {
         <LogoCollection />
         <Products />
         <Divider />
-        <Reviews />
+        <Reviews id="reviews" />
         <Divider />
-        <Highlights />
+        <Highlights id="highlights" />
         <Divider />
-        <NatureTechCloud />
+        <NatureTechCloud id="ntc" />
         <Divider />
-        <FAQ />
+        <FAQ id="faq" />
         <Divider />
         <Footer />
       </div>

@@ -64,22 +64,46 @@ export default function AppAppBar() {
                 Produtos
               </Button>
 
-              <Button variant="text" color="info" size="small">
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                component="a"
+                href="#reviews"
+              >
                 Reviews
               </Button>
-              <Button variant="text" color="info" size="small">
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                component="a"
+                href="#highlights"
+              >
                 Destaques
               </Button>
-              <Button variant="text" color="info" size="small">
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                component="a"
+                href="#ntc"
+              >
                 NTC
               </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                component="a"
+                href="#faq"
+              >
                 Dúvidas
               </Button>
             </Box>
           </Box>
 
-          {/* Ações lado direito */}
+          {/* Ações do lado direito */}
           <Box
             sx={{
               display: { xs: 'none', md: 'flex' },
@@ -95,7 +119,7 @@ export default function AppAppBar() {
               href="/meu-carrinho"
               target="_blank"
               rel="noopener noreferrer"
-              >
+            >
               Carrinho
             </Button>
             <Button color="primary" variant="contained" size="small">
@@ -126,7 +150,7 @@ export default function AppAppBar() {
                   </IconButton>
                 </Box>
 
-                {/* MenuItem Produtos - mesma lógica para nova aba */}
+                {/* MenuItem Produtos */}
                 <MenuItem
                   component="a"
                   href="/produtos"
@@ -135,11 +159,18 @@ export default function AppAppBar() {
                 >
                   Produtos
                 </MenuItem>
-                <MenuItem>Reviews</MenuItem>
-                <MenuItem>Highlights</MenuItem>
-                <MenuItem>Pricing</MenuItem>
-                <MenuItem>FAQ</MenuItem>
-                <MenuItem>Blog</MenuItem>
+                <MenuItem component="a" href="#reviews">
+                  Reviews
+                </MenuItem>
+                <MenuItem component="a" href="#highlights">
+                  Highlights
+                </MenuItem>
+                <MenuItem component="a" href="#ntc">
+                  NTC
+                </MenuItem>
+                <MenuItem component="a" href="#faq">
+                  FAQ
+                </MenuItem>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>

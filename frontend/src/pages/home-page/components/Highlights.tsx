@@ -51,10 +51,14 @@ const items = [
   },
 ];
 
-export default function Highlights() {
+interface HighlightsProps {
+  id?: string;
+}
+
+export default function Highlights(props: HighlightsProps) {
   return (
     <Box
-      id="highlights"
+      id={props.id}
       sx={{
         pt: { xs: 4, sm: 12 },
         pb: { xs: 8, sm: 16 },

@@ -83,7 +83,6 @@ export default function Footer() {
           </Box>
         </Box>
 
-        {/* Product Links */}
         <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', gap: 1 }}>
           <Typography variant="body2" sx={{ fontWeight: 500 }}>
           </Typography>
@@ -104,7 +103,6 @@ export default function Footer() {
           </Link>
         </Box>
 
-        {/* Company Links */}
         <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', gap: 1 }}>
           <Typography variant="body2" sx={{ fontWeight: 500 }}>
           </Typography>
@@ -119,7 +117,6 @@ export default function Footer() {
           </Link>
         </Box>
 
-        {/* Legal Links */}
         <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', gap: 1 }}>
           <Typography variant="body2" sx={{ fontWeight: 500 }}>
           </Typography>
@@ -135,7 +132,6 @@ export default function Footer() {
         </Box>
       </Box>
 
-      {/* Bottom Footer */}
       <Box
         sx={{
           display: 'flex',
