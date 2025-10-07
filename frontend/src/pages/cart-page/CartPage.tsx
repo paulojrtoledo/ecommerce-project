@@ -22,16 +22,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Link } from 'react-router-dom';
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
-
-const cartItems: CartItem[] = [];
+import { useCart } from '../../contexts/CartContext';
 
 const StyledContentBox = styled(Box)(({ theme }) => ({
   borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
@@ -45,18 +36,11 @@ const StyledContentBox = styled(Box)(({ theme }) => ({
 }));
 
 export default function CartPage(props: { disableCustomTheme?: boolean }) {
-  const [items, setItems] = React.useState<CartItem[]>(cartItems);
+  const { items, updateQuantity, removeItem } = useCart();
 
-  const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity < 1) return;
-    setItems(items.map(item =>
-      item.id === id ? { ...item, quantity: newQuantity } : item
-    ));
-  };
-
-  const removeItem = (id: number) => {
-    setItems(items.filter(item => item.id !== id));
-  };
+  React.useEffect(() => {
+    console.log('CartPage - Current items:', items);
+  }, [items]);
 
   const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const shipping = subtotal > 1000 ? 0 : 50;

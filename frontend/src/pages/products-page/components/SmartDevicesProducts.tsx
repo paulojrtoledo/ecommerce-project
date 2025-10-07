@@ -3,11 +3,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
+import { useCart } from '../../../contexts/CartContext';
+import type { CartItem } from '../../../contexts/CartContext';
 
 const ProductCard = styled(Card)(({ theme }) => ({
   height: '100%',
@@ -22,56 +23,79 @@ const ProductCard = styled(Card)(({ theme }) => ({
 
 const products = [
   {
+    id: 16,
     name: 'Hub Doméstico NTA',
-    price: 'R$ 4.150,00',
-    image: '/produtos/hub.jpg', 
+    price: 4150.00,
+    quantity: 1,
+    image: '/hub.jpeg',
   },
   {
+    id: 17,
     name: 'Smart Watch GetFree',
-    price: 'R$ 890,00',
-    image: '/produtos/smartwatch.jpg', 
+    price: 890.00,
+    quantity: 1,
+    image: '/smart-watch.jpeg',
   },
   {
+    id: 18,
     name: 'Câmera Precision Nature',
-    price: 'R$ 670,00',
-    image: '/produtos/camera.jpg', 
+    price: 670.00,
+    quantity: 1,
+    image: '/camera.jpeg',
   },
   {
+    id: 19,
     name: 'Fone de Ouvido NT True',
-    price: 'R$ 260,00',
-    image: '/produtos/fone-de-ouvido.jpg', 
+    price: 260.00,
+    quantity: 1,
+    image: '/fone-de-ouvido.jpeg',
   },
   {
-    name: 'Home Alarme v1',
-    price: 'R$ 790,00',
-    image: '/produtos/home-alarme.jpg', 
+    id: 20,
+    name: 'Home Alarm v1',
+    price: 790.00,
+    quantity: 1,
+    image: '/home-alarm.jpeg',
   },
   {
-    name: 'Sensores Smart NTA',
-    price: 'R$ 1100,00',
-    image: '/produtos/sensores-smart.jpg', 
+    id: 21,
+    name: 'Sensor Smart NTA',
+    price: 1100.00,
+    quantity: 1,
+    image: '/smart-sensor.jpeg',
   },
-
 ];
 
 interface SmartDevicesProps {
   id?: string;
 }
 
-
 export default function SmartDevicesProducts(props: SmartDevicesProps) {
-  const handleAddToCart = (productName: string) => {
-    // Implementar lógica do carrinho
-    console.log(`Adicionado: ${productName}`);
+  const { addItem } = useCart();
+
+  const handleAddToCart = (product: CartItem) => {
+    console.log('Adicionando produto:', product);
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      image: product.image
+    });
   };
 
   return (
-    <Box id={props.id}
-      sx={{
-        width: '100%',
+    <Box
+      id={props.id}
+      sx={(theme) => ({
+        width: "100%",
+        backgroundRepeat: "no-repeat",
+        backgroundImage:
+          theme.palette.mode === "dark"
+            ? "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 16%), transparent)"
+            : "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 90%), transparent)",
         py: 8,
-        backgroundColor: 'background.default',
-      }}
+      })}
     >
       <Container maxWidth="lg">
         <Typography
@@ -101,27 +125,52 @@ export default function SmartDevicesProducts(props: SmartDevicesProps) {
         </Typography>
 
         <Grid container spacing={4}>
-          {products.map((product, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+          {products.map((product) => (
+            <Grid item xs={12} sm={6} md={4} key={product.id}>
               <ProductCard variant="outlined">
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={product.image}
-                  alt={product.name}
-                  sx={{ objectFit: 'contain', p: 2 }}
-                />
+                <Box
+                  sx={{
+                    height: 200,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    p: 2,
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    backgroundColor: 'grey.50',
+                  }}
+                >
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    style={{
+                      maxWidth: '100%',
+                      maxHeight: '100%',
+                      objectFit: 'contain',
+                      borderRadius: 5,
+                    }}
+                  />
+                </Box>
+
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography gutterBottom variant="h6" component="h3">
                     {product.name}
                   </Typography>
-                  <Typography variant="h5" color="primary" sx={{ mb: 2 }}>
-                    {product.price}
+                  <Typography 
+                    variant="h5" 
+                    color="primary" 
+                    sx={{ mb: 2 }}
+                  >
+                    R$ {product.price.toLocaleString('pt-BR', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
                   </Typography>
                   <Button
                     variant="contained"
+                    color="primary"
                     fullWidth
-                    onClick={() => handleAddToCart(product.name)}
+                    onClick={() => handleAddToCart(product)}
                   >
                     Adicionar ao Carrinho
                   </Button>

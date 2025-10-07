@@ -12,14 +12,27 @@ export default function AppTheme(props: AppThemeProps) {
 
   const theme = React.useMemo(() => {
     if (disableCustomTheme) {
-      return createTheme({ palette: { mode: 'light' } }); // default theme
+      return createTheme({ palette: { mode: 'light' } });
     }
 
     return createTheme({
       palette: {
-        mode: 'light', // ou 'dark' se quiser
+        mode: 'light',
+        primary: {
+          main: '#2E7D32', // Verde principal
+          light: '#4CAF50', // Verde claro
+          dark: '#1B5E20',  // Verde escuro
+        },
+        background: {
+          default: '#F1F8E9', // Verde muito claro para fundo
+          paper: '#FFFFFF',   // Branco para cards
+        },
+        text: {
+          primary: '#1B5E20', // Verde escuro para texto
+          secondary: '#4CAF50', // Verde para texto secundário
+        },
       },
-      components: themeComponents || {}, // garante que não seja undefined
+      components: themeComponents || {},
     });
   }, [disableCustomTheme, themeComponents]);
 

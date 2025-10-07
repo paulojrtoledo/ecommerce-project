@@ -8,6 +8,8 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
+import { useCart } from '../../../contexts/CartContext';
+import type { CartItem } from '../../../contexts/CartContext';
 
 const ProductCard = styled(Card)(({ theme }) => ({
   height: '100%',
@@ -22,34 +24,46 @@ const ProductCard = styled(Card)(({ theme }) => ({
 
 const products = [
   {
+    id: 14228313,
     name: 'Placa de Vídeo Nature Tech 4060',
-    price: 'R$ 3.500,00',
-    image: '/produtos/placa-video-4060.jpg',
+    price: 3500,
+    quantity: 1,
+    image: '/placadevideo-nt.webp',
   },
   {
+    id: 13228314,
     name: 'Processador Nature Tech v3',
-    price: 'R$ 2.400,00',
-    image: '/produtos/processador-v3.jpg',
+    price: 2400,
+    quantity: 1,
+    image: '/processador.webp',
   },
   {
+    id: 13228315,
     name: 'SSD Nature Tech 2TB',
-    price: 'R$ 720,00',
-    image: '/produtos/ssd-2tb.jpg',
+    price: 720,
+    quantity: 1,
+    image: '/ssd.webp',
   },
   {
+    id: 13228316,
     name: 'Mother Nature Placa Mãe v2',
-    price: 'R$ 3.000,00',
-    image: '/produtos/placa-mae.jpg',
+    price: 3000,
+    quantity: 1,
+    image: '/placamae.webp',
   },
   {
+    id: 13228317,
     name: 'Monitor Nature Sounds',
-    price: 'R$ 800,00',
-    image: '/produtos/monitor.jpg',
+    price: 800,
+    quantity: 1,
+    image: '/monitor.webp',
   },
   {
+    id: 13228318,
     name: 'Gabinete Forest Black',
-    price: 'R$ 540,00',
-    image: '/produtos/gabinete.jpg',
+    price: 540,
+    quantity: 1,
+    image: 'gabinete.webp',
   },
 ];
 
@@ -58,12 +72,22 @@ interface HardwareProductsProps {
 }
 
 export default function HardwareProducts(props: HardwareProductsProps) {
-  const handleAddToCart = (productName: string) => {
-    console.log(`Adicionado: ${productName}`);
+  const { addItem } = useCart();
+
+  const handleAddToCart = (product: CartItem) => {
+    console.log('Adicionando produto:', product); // Para debug
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      image: product.image
+    });
   };
 
   return (
-    <Box id={props.id}
+    <Box
+      id={props.id}
       sx={(theme) => ({
         width: "100%",
         backgroundRepeat: "no-repeat",
@@ -71,6 +95,7 @@ export default function HardwareProducts(props: HardwareProductsProps) {
           theme.palette.mode === "dark"
             ? "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 16%), transparent)"
             : "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 90%), transparent)",
+        py: 18, // 🔹 Adicionei padding vertical
       })}
     >
       <Container maxWidth="lg">
@@ -79,9 +104,9 @@ export default function HardwareProducts(props: HardwareProductsProps) {
           component="h2"
           align="center"
           gutterBottom
-          sx={{ 
-            mb: 4, 
-            pt: 24, 
+          sx={{
+            mb: 4,
+            pt: 4, // 🔹 Reduzi o padding top
           }}
         >
           Computação & Hardware
@@ -95,36 +120,61 @@ export default function HardwareProducts(props: HardwareProductsProps) {
             mx: 'auto',
             mb: 6,
             color: 'text.secondary',
-            fontSize: '1.1rem', 
+            fontSize: '1.1rem',
           }}
         >
           Descubra os melhores componentes para montar seu setup dos sonhos.
-          <br/>
+          <br />
           Produtos testados e aprovados com garantia Nature Tech.
         </Typography>
 
         <Grid container spacing={4}>
-          {products.map((product, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+          {products.map((product) => ( // 🔹 Use product.id como key
+            <Grid item xs={12} sm={6} md={4} key={product.id}>
               <ProductCard variant="outlined">
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={product.image}
-                  alt={product.name}
-                  sx={{ objectFit: 'contain', p: 2 }}
-                />
+                <Box
+                  sx={{
+                    height: 200,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    p: 2,
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    backgroundColor: 'grey.50',
+                  }}
+                >
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    style={{
+                      maxWidth: '100%',
+                      maxHeight: '100%',
+                      objectFit: 'contain',
+                      borderRadius: 5,
+                    }}
+                  />
+                </Box>
+
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography gutterBottom variant="h6" component="h3">
                     {product.name}
                   </Typography>
-                  <Typography variant="h5" color="primary" sx={{ mb: 2 }}>
-                    {product.price}
+                  <Typography
+                    variant="h5"
+                    color="primary"
+                    sx={{ mb: 2 }}
+                  >
+                    R$ {product.price.toLocaleString('pt-BR', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
                   </Typography>
                   <Button
                     variant="contained"
+                    color="primary"
                     fullWidth
-                    onClick={() => handleAddToCart(product.name)}
+                    onClick={() => handleAddToCart(product)}
                   >
                     Adicionar ao Carrinho
                   </Button>

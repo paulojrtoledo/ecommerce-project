@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface CartItem {
+export interface CartItem {
   id: number;
   name: string;
   price: number;
@@ -19,22 +19,32 @@ interface CartContextType {
 const CartContext = React.createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = React.useState<CartItem[]>([]);
+  const [items, setItems] = React.useState<CartItem[]>(() => {
+  const saved = localStorage.getItem('cart-items');
+  return saved ? JSON.parse(saved) : [];
+});
+
+  React.useEffect(() => {
+  localStorage.setItem('cart-items', JSON.stringify(items));
+}, [items]);
 
   const addItem = (newItem: CartItem) => {
+    console.log('CartContext - Adding item:', newItem);
     setItems(currentItems => {
       const existingItem = currentItems.find(item => item.id === newItem.id);
       
       if (existingItem) {
-        // Se já existe, aumenta a quantidade
-        return currentItems.map(item =>
+        const updated = currentItems.map(item =>
           item.id === newItem.id 
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
+        console.log('CartContext - Updated existing item:', updated);
+        return updated;
       } else {
-        // Se não existe, adiciona novo item
-        return [...currentItems, { ...newItem, quantity: 1 }];
+        const updated = [...currentItems, { ...newItem, quantity: 1 }];
+        console.log('CartContext - Added new item:', updated);
+        return updated;
       }
     });
   };
@@ -56,8 +66,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems([]);
   };
 
+  const value = {
+    items,
+    addItem,
+    removeItem,
+    updateQuantity,
+    clearCart
+  };
+
   return (
-    <CartContext.Provider value={{ items, addItem, removeItem, updateQuantity, clearCart }}>
+    <CartContext.Provider value={value}>
       {children}
     </CartContext.Provider>
   );

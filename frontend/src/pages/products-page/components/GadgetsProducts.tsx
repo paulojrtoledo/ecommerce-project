@@ -3,12 +3,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import { Theme, useTheme } from '@mui/material/styles';
+import { useCart } from '../../../contexts/CartContext';
+import type { CartItem } from '../../../contexts/CartContext';
 
 const ProductCard = styled(Card)(({ theme }) => ({
   height: '100%',
@@ -23,34 +23,46 @@ const ProductCard = styled(Card)(({ theme }) => ({
 
 const products = [
   {
+    id: 10,
     name: 'Headset Wild Nature Pro',
-    price: 'R$ 1.250,00',
-    image: '/produtos/headset.jpg', 
+    price: 1250.00,
+    quantity: 1,
+    image: '/headset.webp',
   },
   {
+    id: 11,
     name: 'Teclado Silent Tech',
-    price: 'R$ 900,00',
-    image: '/produtos/teclado.jpg', 
+    price: 900.00,
+    quantity: 1,
+    image: '/teclado.webp',
   },
   {
+    id: 12,
     name: 'Mouse Precision v1',
-    price: 'R$ 200,00',
-    image: '/produtos/mouse.jpg', 
+    price: 200.00,
+    quantity: 1,
+    image: '/mouse.webp',
   },
   {
+    id: 13,
     name: 'Interface de Áudio Tech Pro',
-    price: 'R$ 435,00',
-    image: '/produtos/interface.jpg', 
+    price: 435.00,
+    quantity: 1,
+    image: '/interface.webp',
   },
   {
-    name: 'Controladora MIDI Function Tech',
-    price: 'R$ 900,00',
-    image: '/produtos/controladora.jpg', 
+    id: 14,
+    name: 'Drum Pad Function Tech',
+    price: 900.00,
+    quantity: 1,
+    image: '/drum-pad.webp',
   },
   {
+    id: 15,
     name: 'Docking Station NTA',
-    price: 'R$ 280,00',
-    image: '/produtos/docking-station.jpg', 
+    price: 280.00,
+    quantity: 1,
+    image: '/docking-station.webp',
   },
 ];
 
@@ -59,24 +71,32 @@ interface GadgetsProductsProps {
 }
 
 export default function GadgetsProducts(props: GadgetsProductsProps) {
-    const theme = useTheme();
-    const isDarkMode = theme.palette.mode === "dark";
-  
+  const { addItem } = useCart();
 
-  const handleAddToCart = (productName: string) => {
-    // Implementar lógica do carrinho
-    console.log(`Adicionado: ${productName}`);
+  const handleAddToCart = (product: CartItem) => {
+    console.log('Adicionando produto:', product);
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      image: product.image
+    });
   };
 
   return (
-    <Box id={props.id} sx={{ py: 4 }}>
-      <Typography
-        component="p"
-        variant="subtitle2"
-        align="center"
-        sx={{ color: "text.secondary" }}
-      >
-      </Typography>
+    <Box
+      id={props.id}
+      sx={(theme) => ({
+        width: "100%",
+        backgroundRepeat: "no-repeat",
+        backgroundImage:
+          theme.palette.mode === "dark"
+            ? "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 16%), transparent)"
+            : "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 90%), transparent)",
+        py: 8,
+      })}
+    >
       <Container maxWidth="lg">
         <Typography
           variant="h4"
@@ -105,27 +125,52 @@ export default function GadgetsProducts(props: GadgetsProductsProps) {
         </Typography>
 
         <Grid container spacing={4}>
-          {products.map((product, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+          {products.map((product) => (
+            <Grid item xs={12} sm={6} md={4} key={product.id}>
               <ProductCard variant="outlined">
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={product.image}
-                  alt={product.name}
-                  sx={{ objectFit: 'contain', p: 2 }}
-                />
+                <Box
+                  sx={{
+                    height: 200,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    p: 2,
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    backgroundColor: 'grey.50',
+                  }}
+                >
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    style={{
+                      maxWidth: '100%',
+                      maxHeight: '100%',
+                      objectFit: 'contain',
+                      borderRadius: 5,
+                    }}
+                  />
+                </Box>
+
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography gutterBottom variant="h6" component="h3">
                     {product.name}
                   </Typography>
-                  <Typography variant="h5" color="primary" sx={{ mb: 2 }}>
-                    {product.price}
+                  <Typography 
+                    variant="h5" 
+                    color="primary" 
+                    sx={{ mb: 2 }}
+                  >
+                    R$ {product.price.toLocaleString('pt-BR', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
                   </Typography>
                   <Button
                     variant="contained"
+                    color="primary"
                     fullWidth
-                    onClick={() => handleAddToCart(product.name)}
+                    onClick={() => handleAddToCart(product)}
                   >
                     Adicionar ao Carrinho
                   </Button>
