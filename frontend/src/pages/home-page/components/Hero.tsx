@@ -68,7 +68,7 @@ export default function Hero() {
           pb: { xs: 8, sm: 12 },
         }}
       >
-        {/* 🔹 TEXTOS E FORMULÁRIO */}
+        {/*  Textos E Caixa*/}
         <Stack
           spacing={2}
           useFlexGap
@@ -137,12 +137,12 @@ export default function Hero() {
                   opacity: 1,
                 },
                 '& .MuiOutlinedInput-root': {
-                  color: 'white', // 🔹 Cor do texto digitado também branco
+                  color: 'white', // Cor do texto digitado 
                   '& fieldset': {
-                    borderColor: 'black', // 🔹 Borda branca
+                    borderColor: 'black', // Borda branca
                   },
                   '&:hover fieldset': {
-                    borderColor: 'black', // 🔹 Borda branca no hover
+                    borderColor: 'black', // Borda branca no hover
                   },
                 },
               }}
@@ -160,7 +160,7 @@ export default function Hero() {
                 backgroundColor: "#85b88e",
                 color: "black",
                 '&:hover': {
-                  backgroundColor: "#85b88e", // 🔹 Cor mais escura no hover
+                  backgroundColor: "#85b88e", // Cor levemente mais escura no hover
                   color: "black",
                 },
               }}
@@ -181,7 +181,7 @@ export default function Hero() {
                 color: "white",
                 textDecoration: "underline",
                 '&:hover': {
-                  color: "grey.300", // 🔹 Cinza claro no hover
+                  color: "grey.300", // Cinza claro no hover
                 }
               }}
             >
@@ -191,7 +191,7 @@ export default function Hero() {
           </Typography>
         </Stack>
 
-        {/* 🔹 CARROSSEL DE IMAGENS */}
+        {/*  CARROSSEL DE IMAGENS */}
         <StyledBox id="image">
           <Swiper
             navigation

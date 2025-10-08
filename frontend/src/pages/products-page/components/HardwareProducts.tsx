@@ -95,7 +95,7 @@ export default function HardwareProducts(props: HardwareProductsProps) {
           theme.palette.mode === "dark"
             ? "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 16%), transparent)"
             : "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 90%), transparent)",
-        py: 18, // 🔹 Adicionei padding vertical
+        py: 18, 
       })}
     >
       <Container maxWidth="lg">
@@ -106,7 +106,7 @@ export default function HardwareProducts(props: HardwareProductsProps) {
           gutterBottom
           sx={{
             mb: 4,
-            pt: 4, // 🔹 Reduzi o padding top
+            pt: 4, 
           }}
         >
           Computação & Hardware
@@ -129,7 +129,7 @@ export default function HardwareProducts(props: HardwareProductsProps) {
         </Typography>
 
         <Grid container spacing={4}>
-          {products.map((product) => ( // 🔹 Use product.id como key
+          {products.map((product) => ( 
             <Grid item xs={12} sm={6} md={4} key={product.id}>
               <ProductCard variant="outlined">
                 <Box

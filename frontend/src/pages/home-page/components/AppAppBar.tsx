@@ -51,7 +51,7 @@ export default function AppAppBar() {
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
             <Logo />
             <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 28 }}>
-              {/* Botão Produtos - agora com link seguro abrindo em nova aba */}
+              {/* Botão Produtos */}
               <Button
                 variant="text"
                 color="info"
@@ -148,7 +148,7 @@ export default function AppAppBar() {
                   </IconButton>
                 </Box>
 
-                {/* MenuItem Produtos */}
+                {/* Menu Item Produtos */}
                 <MenuItem
                   component="a"
                   href="/produtos"
