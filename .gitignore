@@ -8,7 +8,7 @@ dist/
 .env
 
 # arquivos de credenciais do Firebase
-*.json
+backend/**/*.json
 
 # cache e logs
 npm-debug.log*
