@@ -16,8 +16,8 @@ export default function Logo() {
         to="/" 
         variant="body1"
         sx={{ 
-          fontWeight: "bold", 
-          color: "text.primary",
+          fontWeight: "normal", 
+          color: "#000000",
           textDecoration: "none", 
           "&:hover": {
             opacity: 0.8,

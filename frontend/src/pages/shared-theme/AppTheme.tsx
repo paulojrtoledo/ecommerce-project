@@ -23,6 +23,9 @@ export default function AppTheme(props: AppThemeProps) {
           light: '#4CAF50', // Verde claro
           dark: '#1B5E20',  // Verde escuro
         },
+        info: {
+          main: '#FFFFFF',
+        },
         background: {
           default: '#F1F8E9', // Verde muito claro para fundo
           paper: '#FFFFFF',   // Branco para cards
@@ -31,6 +34,7 @@ export default function AppTheme(props: AppThemeProps) {
           primary: '#1B5E20', // Verde escuro para texto
           secondary: '#4CAF50', // Verde para texto secundário
         },
+
       },
       components: themeComponents || {},
     });
