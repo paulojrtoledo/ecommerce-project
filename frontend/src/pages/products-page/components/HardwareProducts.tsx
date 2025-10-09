@@ -1,69 +1,60 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
 import { useCart } from '../../../contexts/CartContext';
-import type { CartItem } from '../../../contexts/CartContext';
-
-const ProductCard = styled(Card)(({ theme }) => ({
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  transition: 'transform 0.2s ease-in-out',
-  '&:hover': {
-    transform: 'translateY(-4px)',
-    boxShadow: theme.shadows[4],
-  },
-}));
+import ProductCard from './ProductCard';
 
 const products = [
   {
     id: 14228313,
-    name: 'Placa de Vídeo Nature Tech 4060',
+    name: 'Placa de Vídeo NT 4060',
     price: 3500,
-    quantity: 1,
     image: '/placadevideo-nt.webp',
+    description: 'Placa de vídeo de alta performance para gamers e criadores de conteúdo',
+    category: 'Hardware'
   },
   {
     id: 13228314,
     name: 'Processador Nature Tech v3',
     price: 2400,
-    quantity: 1,
     image: '/processador.webp',
+    description: 'Processador de última geração com 8 núcleos para multitarefa intensiva',
+    category: 'Hardware'
   },
   {
     id: 13228315,
     name: 'SSD Nature Tech 2TB',
     price: 720,
-    quantity: 1,
     image: '/ssd.webp',
+    description: 'SSD NVMe ultrarrápido para carregamento instantâneo de aplicações',
+    category: 'Armazenamento'
   },
   {
     id: 13228316,
     name: 'Mother Nature Placa Mãe v2',
     price: 3000,
-    quantity: 1,
     image: '/placamae.webp',
+    description: 'Placa mãe ATX com suporte às mais recentes tecnologias e expansibilidade',
+    category: 'Hardware'
   },
   {
     id: 13228317,
     name: 'Monitor Nature Sounds',
     price: 800,
-    quantity: 1,
     image: '/monitor.webp',
+    description: 'Monitor 24" Full HD com cores vibrantes e taxa de atualização de 144Hz',
+    category: 'Periféricos'
   },
   {
     id: 13228318,
     name: 'Gabinete Forest Black',
     price: 540,
-    quantity: 1,
-    image: 'gabinete.webp',
-  },
+    image: '/gabinete.webp',
+    description: 'Gabinete mid-tower elegante com excelente fluxo de ar e iluminação RGB',
+    category: 'Acessórios'
+  },  
 ];
 
 interface HardwareProductsProps {
@@ -73,8 +64,8 @@ interface HardwareProductsProps {
 export default function HardwareProducts(props: HardwareProductsProps) {
   const { addItem } = useCart();
 
-  const handleAddToCart = (product: CartItem) => {
-    console.log('Adicionando produto:', product); // Para debug
+  const handleAddToCart = (product: any) => {
+    console.log('Adicionando produto:', product);
     addItem({
       id: product.id,
       name: product.name,
@@ -130,55 +121,10 @@ export default function HardwareProducts(props: HardwareProductsProps) {
         <Grid container spacing={4}>
           {products.map((product) => ( 
             <Grid item xs={12} sm={6} md={4} key={product.id}>
-              <ProductCard variant="outlined">
-                <Box
-                  sx={{
-                    height: 200,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    p: 2,
-                    borderRadius: 2,
-                    overflow: 'hidden',
-                    backgroundColor: 'grey.50',
-                  }}
-                >
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    style={{
-                      maxWidth: '100%',
-                      maxHeight: '100%',
-                      objectFit: 'contain',
-                      borderRadius: 5,
-                    }}
-                  />
-                </Box>
-
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography gutterBottom variant="h6" component="h3">
-                    {product.name}
-                  </Typography>
-                  <Typography
-                    variant="h5"
-                    color="primary"
-                    sx={{ mb: 2 }}
-                  >
-                    R$ {product.price.toLocaleString('pt-BR', {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    Adicionar ao Carrinho
-                  </Button>
-                </CardContent>
-              </ProductCard>
+              <ProductCard 
+                product={product}
+                onAddToCart={handleAddToCart}
+              />
             </Grid>
           ))}
         </Grid>
