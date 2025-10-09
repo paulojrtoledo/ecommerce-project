@@ -102,14 +102,15 @@ export default function AppAppBar() {
             </Box>
           </Box>
 
-          {/* Ações do lado direito */}
-          <Box
+          {/* SEÇÃO DESKTOP */}  
+              <Box
             sx={{
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: 'none', md: 'flex' }, 
               gap: 1,
               alignItems: 'center',
             }}
           >
+            {/* CARRINHO */}
             <Button
               variant="text"
               color="info"
@@ -120,13 +121,16 @@ export default function AppAppBar() {
             >
               Carrinho
             </Button>
+
+            {/* ENTRAR */}
             <Button color="primary" variant="contained" size="small">
               Entrar
             </Button>
+            
             <ColorModeIconDropdown />
           </Box>
 
-          {/* Menu Mobile */}
+          {/* SEÇÃO MOBILE -*/}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
             <ColorModeIconDropdown size="medium" />
             <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
@@ -170,13 +174,28 @@ export default function AppAppBar() {
                   FAQ
                 </MenuItem>
                 <Divider sx={{ my: 3 }} />
+
+                {/* ENTRAR MOBILE */}
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>
                     Entrar
                   </Button>
                 </MenuItem>
-                <MenuItem>
-                  <Button color="primary" variant="outlined" fullWidth>
+
+
+                {/* CARRINHO MOBILE */}
+                <MenuItem 
+                  component="a" 
+                  href="/meu-carrinho"
+                  onClick={toggleDrawer(false)} 
+                  sx={{ p: 0 }} 
+                >
+                  <Button 
+                    color="primary" 
+                    variant="outlined" 
+                    fullWidth 
+                    component="span" 
+                  >
                     Carrinho
                   </Button>
                 </MenuItem>
