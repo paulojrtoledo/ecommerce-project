@@ -100,11 +100,10 @@ export function MobileLayout({
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               minHeight: 280,
-              backgroundImage: `url(${
-                theme.palette.mode === 'dark'
+              backgroundImage: `url(${theme.palette.mode === 'dark'
                   ? selectedFeature.imageDark
                   : selectedFeature.imageLight
-              })`,
+                })`,
             })}
           />
           <Box sx={{ px: 2, pb: 2 }}>
@@ -154,15 +153,15 @@ export default function Products() {
         backgroundRepeat: 'no-repeat',
         backgroundImage:
           theme.palette.mode === 'dark'
-            ? 'radial-gradient(ellipse 80% 50% at 50% -20%, hsl(120, 60%, 20%), transparent)'
-            : 'radial-gradient(ellipse 90% 80% at 50% -20%, #0a0908, transparent)',
+            ? "radial-gradient(ellipse 80% 50% at 50% -20%, #1a331a, transparent)"
+            : "radial-gradient(ellipse 90% 80% at 50% -20%, #1a331a, transparent)",
         backgroundColor:
           theme.palette.mode === 'dark' ? 'hsl(0, 0%, 0%)' : '#98c9a3',
         py: { xs: 8, sm: 16 },
       })}
     >
       <Container>
-        <Box sx={{ width: { sm: '100%', md: '60%' } }}>
+        <Box sx={{ width: { sm: '100%', md: '60%' }, mb: 10}}>
           <Typography
             component="h2"
             variant="h4"
@@ -189,6 +188,30 @@ export default function Products() {
             inovação, desempenho e confiança em cada compra.
           </Typography>
         </Box>
+
+        {/* 👇 ADICIONE O CARD AQUI 👇 */}
+        <Box sx={{ mb: -19, 
+          display: { xs: 'none', md: 'block' },
+          justifyContent: 'flex-start',
+          width: '50%'
+          }}>
+          <Card
+            sx={{
+              p: 3,
+              backgroundColor: 'rgba(255,255,255,0.1)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255,255,255,0.2)'
+            }}
+          >
+            <Typography variant="h5" gutterBottom color="white" fontWeight="bold">
+              Destaque da Semana
+            </Typography>
+            <Typography variant="body1" color="white" sx={{ mb: 2 }}>
+              Confira nossos produtos mais populares com descontos especiais!
+            </Typography>
+          </Card>
+        </Box>
+        {/* 👆 FIM DO CARD 👆 */}
 
         <Box
           sx={{
@@ -223,8 +246,8 @@ export default function Products() {
                       selectedItemIndex === index
                         ? theme.palette.text.primary
                         : theme.palette.mode === 'dark'
-                        ? 'white'
-                        : '#1b2021',
+                          ? 'white'
+                          : '#1b2021',
                     '&:hover': {
                       backgroundColor: theme.palette.action.hover,
                     },
@@ -274,11 +297,10 @@ export default function Products() {
                     backgroundSize: 'contain',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
-                    backgroundImage: `url(${
-                      theme.palette.mode === 'dark'
+                    backgroundImage: `url(${theme.palette.mode === 'dark'
                         ? selectedFeature.imageDark
                         : selectedFeature.imageLight
-                    })`,
+                      })`,
                   })}
                 />
               </Card>

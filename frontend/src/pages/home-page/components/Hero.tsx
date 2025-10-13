@@ -52,7 +52,7 @@ export default function Hero() {
         backgroundRepeat: "no-repeat",
         backgroundImage:
           theme.palette.mode === "dark"
-            ? "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(120, 60%, 20%), transparent)" // Verde escuro em cima
+            ? "radial-gradient(ellipse 80% 50% at 50% -20%, #1a331a, transparent)" // Verde escuro em cima
             : "radial-gradient(ellipse 90% 80% at 50% -20%, #0a0908, transparent)", // Preto em cima
         backgroundColor: theme.palette.mode === "dark"
           ? "hsl(0, 0%, 0%)" // Fundo preto no dark

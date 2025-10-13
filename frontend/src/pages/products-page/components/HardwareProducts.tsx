@@ -28,7 +28,7 @@ const products = [
     name: 'SSD Nature Tech 2TB',
     price: 720,
     image: '/ssd.webp',
-    description: 'SSD NVMe ultrarrápido para carregamento instantâneo de aplicações',
+    description: 'SSD NVMe ultra rápido para carregamento instantâneo de aplicações',
     category: 'Armazenamento'
   },
   {
@@ -54,7 +54,7 @@ const products = [
     image: '/gabinete.webp',
     description: 'Gabinete mid-tower elegante com excelente fluxo de ar e iluminação RGB',
     category: 'Acessórios'
-  },  
+  },
 ];
 
 interface HardwareProductsProps {
@@ -83,9 +83,12 @@ export default function HardwareProducts(props: HardwareProductsProps) {
         backgroundRepeat: "no-repeat",
         backgroundImage:
           theme.palette.mode === "dark"
-            ? "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 16%), transparent)"
-            : "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 90%), transparent)",
-        py: 18, 
+            ? "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(120, 60%, 20%), transparent)"
+            : "radial-gradient(ellipse 90% 80% at 50% -20%, #0a0908, transparent)",
+        py: 18,
+        backgroundColor: theme.palette.mode === "dark"
+          ? "hsl(0, 0%, 0%)" // Fundo preto no dark
+          : "#98c9a3", // Fundo verde 
       })}
     >
       <Container maxWidth="lg">
@@ -96,7 +99,8 @@ export default function HardwareProducts(props: HardwareProductsProps) {
           gutterBottom
           sx={{
             mb: 4,
-            pt: 4, 
+            pt: 4,
+            color: theme => theme.palette.mode === "dark" ? "white" : "#98c9a3",
           }}
         >
           Computação & Hardware
@@ -109,7 +113,7 @@ export default function HardwareProducts(props: HardwareProductsProps) {
             maxWidth: '800px',
             mx: 'auto',
             mb: 6,
-            color: 'text.secondary',
+            color: '#FFFFFF',
             fontSize: '1.1rem',
           }}
         >
@@ -119,9 +123,9 @@ export default function HardwareProducts(props: HardwareProductsProps) {
         </Typography>
 
         <Grid container spacing={4}>
-          {products.map((product) => ( 
+          {products.map((product) => (
             <Grid item xs={12} sm={6} md={4} key={product.id}>
-              <ProductCard 
+              <ProductCard
                 product={product}
                 onAddToCart={handleAddToCart}
               />

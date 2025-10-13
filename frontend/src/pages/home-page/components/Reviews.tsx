@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles';
+import Rating from '@mui/material/Rating';
 
 const userReviews = [
   {
@@ -15,36 +16,42 @@ const userReviews = [
     name: "Rogério M.",
     review:
       "Produtos de alta qualidade e entrega rápida! Estou muito satisfeito com minha compra.",
+    rating: 5
   },
   {
     avatar: <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />,
     name: "Tomás L.",
     review:
       "Comprei um mouse gamer e estou impressionado! Ótima performance e confortável para longas sessões.",
+      rating: 5
   },
   {
     avatar: <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />,
     name: "Carolina F.",
     review:
       "A entrega atrasou um pouco, mas o atendimento solucionou tudo rapidamente. Produto bom.",
+    rating: 4
   },
   {
     avatar: <Avatar alt="Julia Stewart" src="/static/images/avatar/4.jpg" />,
     name: "João S.",
     review:
       "Equipe super atenciosa! Tiraram todas as minhas dúvidas antes da compra, me senti seguro.",
+    rating: 5
   },
   {
     avatar: <Avatar alt="John Smith" src="/static/images/avatar/5.jpg" />,
     name: "Júlia Z.",
     review:
-      "Ótima variedade de hardware e acessórios. O site poderia carregar um pouco mais rápido, mas vale a pena.",
+      "Ótima variedade de hardware e acessórios. O site é incrível e fácil de navegar.",
+    rating: 4
   },
   {
     avatar: <Avatar alt="Daniel Wolf" src="/static/images/avatar/6.jpg" />,
     name: "Daniel P",
     review:
       "O site é fácil de navegar e encontrei tudo que precisava. O suporte foi rápido quando precisei!",
+    rating: 5
   },
 ];
 
@@ -82,7 +89,7 @@ export default function Reviews(props: ReviewsProps) {
           >
             Avaliações
           </Typography>
-          <Typography variant="body1" sx={{ color: "text.secondary" }}>
+          <Typography variant="body1" sx={{ color: "#081c15" }}>
             Veja por que nossos clientes amam nossos produtos de tecnologia. Descubra como nos destacamos em desempenho, inovação e confiabilidade. Junte-se a nós e aproveite qualidade, tecnologia de ponta e suporte dedicado.
           </Typography>
         </Box>
@@ -132,6 +139,10 @@ export default function Reviews(props: ReviewsProps) {
                       fontWeight: 'bold'
                     }}
                   />
+                  {/* Adicione as estrelas apenas se existir rating */}
+                  {review.rating && (
+                    <Rating value={review.rating} readOnly size="small" />
+                  )}
                 </Box>
               </Card>
             </Grid>
