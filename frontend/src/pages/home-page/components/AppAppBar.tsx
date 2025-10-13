@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
 import Logo from './Logo';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -102,14 +103,31 @@ export default function AppAppBar() {
             </Box>
           </Box>
 
-          {/* SEÇÃO DESKTOP */}  
-              <Box
+          {/* SEÇÃO DESKTOP */}
+          <Box
             sx={{
-              display: { xs: 'none', md: 'flex' }, 
+              display: { xs: 'none', md: 'flex' },
               gap: 1,
               alignItems: 'center',
             }}
           >
+
+            {/* FAVORITOS */}
+            <IconButton
+              color="inherit"
+              size="small"
+              component="a"
+              href="/favoritos"
+              rel="noopener noreferrer"
+              sx={{
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                }
+              }}
+            >
+              <FavoriteIcon />
+            </IconButton>
             {/* CARRINHO */}
             <Button
               variant="text"
@@ -122,11 +140,17 @@ export default function AppAppBar() {
               Carrinho
             </Button>
 
-            {/* ENTRAR */}
-            <Button color="primary" variant="contained" size="small">
+            <Button
+              color="primary"
+              variant="contained"
+              size="small"
+              component="a"
+              href="/login"
+              rel="noopener noreferrer"
+            >
               Entrar
             </Button>
-            
+
             <ColorModeIconDropdown />
           </Box>
 
@@ -175,8 +199,12 @@ export default function AppAppBar() {
                 </MenuItem>
                 <Divider sx={{ my: 3 }} />
 
-                {/* ENTRAR MOBILE */}
-                <MenuItem>
+                <MenuItem
+                  component="a"
+                  href="/login"
+                  rel="noopener noreferrer"
+                  sx={{ p: 0 }}
+                >
                   <Button color="primary" variant="contained" fullWidth>
                     Entrar
                   </Button>
@@ -184,17 +212,17 @@ export default function AppAppBar() {
 
 
                 {/* CARRINHO MOBILE */}
-                <MenuItem 
-                  component="a" 
+                <MenuItem
+                  component="a"
                   href="/meu-carrinho"
-                  onClick={toggleDrawer(false)} 
-                  sx={{ p: 0 }} 
+                  onClick={toggleDrawer(false)}
+                  sx={{ p: 0 }}
                 >
-                  <Button 
-                    color="primary" 
-                    variant="outlined" 
-                    fullWidth 
-                    component="span" 
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    fullWidth
+                    component="span"
                   >
                     Carrinho
                   </Button>

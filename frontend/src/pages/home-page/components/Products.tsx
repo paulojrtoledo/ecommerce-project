@@ -6,10 +6,14 @@ import MuiChip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-
 import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded';
 import EdgesensorHighRoundedIcon from '@mui/icons-material/EdgesensorHighRounded';
 import ViewQuiltRoundedIcon from '@mui/icons-material/ViewQuiltRounded';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const items = [
   {
@@ -67,6 +71,27 @@ interface MobileLayoutProps {
   selectedFeature?: (typeof items)[0];
 }
 
+const carouselImages = [
+  {
+    id: 1,
+    image: '/processador.webp',
+    title: 'Oferta Especial',
+    description: 'Produtos selecionados com até 30% off'
+  },
+  {
+    id: 2,
+    image: '/mouse.webp',
+    title: 'Novidade',
+    description: 'Lançamentos da semana'
+  },
+  {
+    id: 3,
+    image: '/smart-watch.jpeg',
+    title: 'Mais Vendidos',
+    description: 'Os preferidos dos clientes'
+  }
+];
+
 export function MobileLayout({
   selectedItemIndex,
   handleItemClick,
@@ -101,8 +126,8 @@ export function MobileLayout({
               backgroundPosition: 'center',
               minHeight: 280,
               backgroundImage: `url(${theme.palette.mode === 'dark'
-                  ? selectedFeature.imageDark
-                  : selectedFeature.imageLight
+                ? selectedFeature.imageDark
+                : selectedFeature.imageLight
                 })`,
             })}
           />
@@ -161,7 +186,7 @@ export default function Products() {
       })}
     >
       <Container>
-        <Box sx={{ width: { sm: '100%', md: '60%' }, mb: 10}}>
+        <Box sx={{ width: { sm: '100%', md: '60%' }, mb: 10 }}>
           <Typography
             component="h2"
             variant="h4"
@@ -190,25 +215,61 @@ export default function Products() {
         </Box>
 
         {/* 👇 ADICIONE O CARD AQUI 👇 */}
-        <Box sx={{ mb: -19, 
+        <Box sx={{
+          mb: -65,
           display: { xs: 'none', md: 'block' },
           justifyContent: 'flex-start',
-          width: '50%'
-          }}>
+          width: '50%',
+        }}>
           <Card
             sx={{
-              p: 3,
-              backgroundColor: 'rgba(255,255,255,0.1)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255,255,255,0.2)'
+              height: '500px',
+              overflow: 'hidden'
             }}
           >
-            <Typography variant="h5" gutterBottom color="white" fontWeight="bold">
-              Destaque da Semana
-            </Typography>
-            <Typography variant="body1" color="white" sx={{ mb: 2 }}>
-              Confira nossos produtos mais populares com descontos especiais!
-            </Typography>
+            <Swiper
+              modules={[Navigation, Pagination]}
+              spaceBetween={0}
+              slidesPerView={1}
+              navigation
+              pagination={{ clickable: true }}
+              style={{ height: '100%' }}
+            >
+              {carouselImages.map((item) => (
+                <SwiperSlide key={item.id}>
+                  <Box
+                    sx={{
+                      height: '100%',
+                      position: 'relative',
+                      backgroundImage: `url(${item.image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      display: 'flex',
+                      alignItems: 'flex-end'
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
+                        color: 'white',
+                        p: 3
+                      }}
+                    >
+                      <Typography variant="h5" fontWeight="bold">
+                        {item.title}
+                      </Typography>
+                      <Typography variant="body1">
+                        {item.description}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </Card>
         </Box>
         {/* 👆 FIM DO CARD 👆 */}
@@ -298,8 +359,8 @@ export default function Products() {
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     backgroundImage: `url(${theme.palette.mode === 'dark'
-                        ? selectedFeature.imageDark
-                        : selectedFeature.imageLight
+                      ? selectedFeature.imageDark
+                      : selectedFeature.imageLight
                       })`,
                   })}
                 />

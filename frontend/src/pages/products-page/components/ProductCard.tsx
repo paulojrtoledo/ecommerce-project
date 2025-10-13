@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, Button, Typography, Box, IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import { useFavorites } from '../../../contexts/FavoritesContext';
 
 interface Product {
     id: number;
@@ -22,8 +23,18 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, onAddToCart }: ProductCardProps) {
     const [isHovered, setIsHovered] = useState(false);
-    const [isFavorito, setIsFavorito] = useState(false);
     const [noCarrinho, setNoCarrinho] = useState(false);
+    
+    // Usando o FavoritesContext
+    const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+    
+    // Estado sincronizado com o context
+    const [isFavorito, setIsFavorito] = useState(false);
+
+    // Sincroniza o estado local com o context quando o componente monta ou o produto muda
+    useEffect(() => {
+        setIsFavorito(isFavorite(product.id));
+    }, [product.id, isFavorite]);
 
     const handleAddToCart = () => {
         onAddToCart(product);
@@ -36,7 +47,13 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
     };
 
     const handleFavorito = () => {
-        setIsFavorito(!isFavorito);
+        if (isFavorito) {
+            removeFromFavorites(product.id);
+            setIsFavorito(false);
+        } else {
+            addToFavorites(product);
+            setIsFavorito(true);
+        }
     };
 
     const handleCarrinhoRapido = () => {
@@ -84,9 +101,12 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
                         size='small'
                         onClick={handleFavorito}
                         sx={{
-                            color: isFavorito ? 'success.main' : 'grey.400',
+                            color: isFavorito ? '#c43420' : 'grey.400',
                             backgroundColor: 'rgba(255,255,255,0.8)',
-                            '&:hover': { backgroundColor: '#c43420' }
+                            '&:hover': { 
+                                backgroundColor: isFavorito ? 'grey.300' : '#c43420',
+                                color: isFavorito ? 'grey.400' : 'white'
+                            }
                         }}
                     >
                         {isFavorito ? <FavoriteIcon fontSize="small"/> : <FavoriteBorderIcon fontSize='small'/>}
@@ -133,6 +153,9 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
                 onClick={handleAddToCart}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
+                component="a"
+                href="/meu-carrinho"
+                rel="noopener noreferrer"
                 sx={{
                     mt: 2,
                     transition: 'background-color 0.1s ease',

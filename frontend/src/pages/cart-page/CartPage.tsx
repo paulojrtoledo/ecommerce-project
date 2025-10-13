@@ -50,24 +50,27 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <AppAppBar />
-      
+
       <Box
         sx={(theme) => ({
           width: "100%",
           backgroundRepeat: "no-repeat",
           backgroundImage:
             theme.palette.mode === "dark"
-              ? "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 16%), transparent)"
-              : "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 90%), transparent)",
+              ? "radial-gradient(ellipse 80% 50% at 50% -20%, #1a331a, transparent)" // Verde escuro em cima
+              : "radial-gradient(ellipse 90% 80% at 50% -20%, #0a0908, transparent)", // Preto em cima
+          backgroundColor: theme.palette.mode === "dark"
+            ? "hsl(0, 0%, 0%)" // Fundo preto no dark
+            : "#98c9a3", // Fundo verde 
           py: 8,
           minHeight: "100vh",
         })}
       >
         <Container maxWidth="lg" sx={{ py: 15 }}>
           <StyledContentBox>
-            <Typography 
-              variant="h4" 
-              component="h1" 
+            <Typography
+              variant="h4"
+              component="h1"
               textAlign="center"
               gutterBottom
               sx={{ mb: 4 }}
@@ -76,17 +79,17 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
             </Typography>
 
             {items.length === 0 ? (
-              <Box 
-                display="flex" 
-                flexDirection="column" 
-                alignItems="center" 
-                justifyContent="center" 
+              <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
                 py={8}
                 height="300px"
               >
-                <Typography 
-                  variant="h6" 
-                  color="text.secondary" 
+                <Typography
+                  variant="h6"
+                  color="text.secondary"
                   gutterBottom
                   textAlign="center"
                 >
@@ -187,21 +190,21 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
                           <Typography>Subtotal</Typography>
                           <Typography>R$ {subtotal.toFixed(2)}</Typography>
                         </Box>
-                        
+
                         <Box display="flex" justifyContent="space-between">
                           <Typography>Frete</Typography>
                           <Typography>
                             {shipping === 0 ? 'Grátis' : `R$ ${shipping.toFixed(2)}`}
                           </Typography>
                         </Box>
-                        
+
                         <Divider />
-                        
+
                         <Box display="flex" justifyContent="space-between">
                           <Typography variant="h6">Total</Typography>
                           <Typography variant="h6">R$ {total.toFixed(2)}</Typography>
                         </Box>
-                        
+
                         <Button
                           variant="contained"
                           size="large"
@@ -210,7 +213,7 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
                         >
                           Finalizar Compra
                         </Button>
-                        
+
                         <Button
                           component={Link}
                           to="/products"

@@ -17,7 +17,7 @@ export default function LogoProducts() {
         variant="body1"
         sx={{ 
           fontWeight: "bold", 
-          color: "text.primary",
+          color: "#000000",
           textDecoration: "none",
           fontSize: "1rem", 
           lineHeight: 1.5, 

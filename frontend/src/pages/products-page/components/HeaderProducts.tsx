@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
 import LogoProducts from './LogoProducts';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -50,40 +51,64 @@ export default function HeaderProducts() {
         <StyledToolbar variant="dense" disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
             <LogoProducts />
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 16, gap: 6 }}>
-              <Button>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <Button
-                    variant="text"
-                    color="info"
-                    size="small"
-                    component="a"
-                    href="#hardwareproducts"
-                  >
-                  <span>Computação</span>
-                  <span>&</span>
-                  <span>Hardware</span>
-                  </Button>
-                </Box>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 22, gap: 8, alignItems: 'center' }}>
+              {/* Computação & Hardware */}
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                component="a"
+                href="#hardwareproducts"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  lineHeight: 1.2
+                }}
+              >
+                <span>Computação</span>
+                <span>&</span>
+                <span>Hardware</span>
               </Button>
 
+              {/* Periféricos e Acessórios */}
               <Button
                 variant="text"
                 color="info"
                 size="small"
                 component="a"
                 href="#gadgets"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  lineHeight: 1.2
+                }}
               >
-                Periféricos <br /> e <br /> Acessórios
+                <span>Periféricos</span>
+                <span>e</span>
+                <span>Acessórios</span>
               </Button>
+
+              {/* Dispositivos Inteligentes */}
               <Button
                 variant="text"
                 color="info"
                 size="small"
                 component="a"
                 href="#smartdevicesproducts"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  lineHeight: 1.2
+                }}
               >
-                Dispositivos <br /> Inteligentes
+                <span>Dispositivos</span>
+                <span>Inteligentes</span>
               </Button>
             </Box>
           </Box>
@@ -95,6 +120,21 @@ export default function HeaderProducts() {
               alignItems: 'center',
             }}
           >
+            <IconButton
+              color="inherit"
+              size="small"
+              component="a"
+              href="/favoritos"
+              rel="noopener noreferrer"
+              sx={{
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                }
+              }}
+            >
+              <FavoriteIcon />
+            </IconButton>
             <Button
               variant="text"
               color="info"
@@ -105,7 +145,14 @@ export default function HeaderProducts() {
             >
               Carrinho
             </Button>
-            <Button color="primary" variant="contained" size="small">
+            <Button
+              color="primary"
+              variant="contained"
+              size="small"
+              component="a"
+              href="/login"
+              rel="noopener noreferrer"
+            >
               Entrar
             </Button>
             <ColorModeIconDropdown />
@@ -147,7 +194,12 @@ export default function HeaderProducts() {
                 <MenuItem>FAQ</MenuItem>
                 <MenuItem>Blog</MenuItem>
                 <Divider sx={{ my: 3 }} />
-                <MenuItem>
+                <MenuItem
+                  component="a"
+                  href="/login"
+                  rel="noopener noreferrer"
+                  sx={{ p: 0 }}
+                >
                   <Button color="primary" variant="contained" fullWidth>
                     Entrar
                   </Button>
