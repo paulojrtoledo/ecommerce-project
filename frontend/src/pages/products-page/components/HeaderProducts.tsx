@@ -14,6 +14,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
 import LogoProducts from './LogoProducts';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useThemeContext } from '../../../contexts/ThemeContext';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -31,6 +32,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 
 export default function HeaderProducts() {
   const [open, setOpen] = React.useState(false);
+  const { mode, toggleColorMode } = useThemeContext();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -52,7 +54,7 @@ export default function HeaderProducts() {
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
             <LogoProducts />
             <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 22, gap: 8, alignItems: 'center' }}>
-              {/* Computação & Hardware */}
+            
               <Button
                 variant="text"
                 color="info"
@@ -64,7 +66,8 @@ export default function HeaderProducts() {
                   flexDirection: 'column',
                   alignItems: 'center',
                   textAlign: 'center',
-                  lineHeight: 1.2
+                  lineHeight: 1.2,
+                  color: 'text.primary',
                 }}
               >
                 <span>Computação</span>
@@ -72,7 +75,6 @@ export default function HeaderProducts() {
                 <span>Hardware</span>
               </Button>
 
-              {/* Periféricos e Acessórios */}
               <Button
                 variant="text"
                 color="info"
@@ -84,7 +86,8 @@ export default function HeaderProducts() {
                   flexDirection: 'column',
                   alignItems: 'center',
                   textAlign: 'center',
-                  lineHeight: 1.2
+                  lineHeight: 1.2,
+                  color: 'text.primary',
                 }}
               >
                 <span>Periféricos</span>
@@ -92,7 +95,6 @@ export default function HeaderProducts() {
                 <span>Acessórios</span>
               </Button>
 
-              {/* Dispositivos Inteligentes */}
               <Button
                 variant="text"
                 color="info"
@@ -104,7 +106,8 @@ export default function HeaderProducts() {
                   flexDirection: 'column',
                   alignItems: 'center',
                   textAlign: 'center',
-                  lineHeight: 1.2
+                  lineHeight: 1.2,
+                  color: 'text.primary',
                 }}
               >
                 <span>Dispositivos</span>
@@ -142,6 +145,9 @@ export default function HeaderProducts() {
               component="a"
               href="/meu-carrinho"
               rel="noopener noreferrer"
+              sx={{
+                color: 'text.primary',
+              }}
             >
               Carrinho
             </Button>
@@ -155,12 +161,12 @@ export default function HeaderProducts() {
             >
               Entrar
             </Button>
-            <ColorModeIconDropdown />
+            <ColorModeIconDropdown mode={mode} toggleColorMode={toggleColorMode} />
           </Box>
 
-          {/* Menu Mobile */}
+          {/* MENU MOBILE */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
-            <ColorModeIconDropdown size="medium" />
+            <ColorModeIconDropdown size="medium" mode={mode} toggleColorMode={toggleColorMode} />
             <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
               <MenuIcon />
             </IconButton>
@@ -182,17 +188,25 @@ export default function HeaderProducts() {
 
                 <MenuItem
                   component="a"
-                  href="/produtos"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#hardwareproducts"
+                  onClick={toggleDrawer(false)}
                 >
                   Computação & Hardware
                 </MenuItem>
-                <MenuItem>Periféricos e Acessórios</MenuItem>
-                <MenuItem>Dispositivos Inteligentes</MenuItem>
-                <MenuItem>Pricing</MenuItem>
-                <MenuItem>FAQ</MenuItem>
-                <MenuItem>Blog</MenuItem>
+                <MenuItem
+                  component="a"
+                  href="#gadgets"
+                  onClick={toggleDrawer(false)}
+                >
+                  Periféricos e Acessórios
+                </MenuItem>
+                <MenuItem
+                  component="a"
+                  href="#smartdevicesproducts"
+                  onClick={toggleDrawer(false)}
+                >
+                  Dispositivos Inteligentes
+                </MenuItem>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem
                   component="a"
@@ -204,7 +218,12 @@ export default function HeaderProducts() {
                     Entrar
                   </Button>
                 </MenuItem>
-                <MenuItem>
+                <MenuItem
+                  component="a"
+                  href="/meu-carrinho"
+                  onClick={toggleDrawer(false)}
+                  sx={{ p: 0 }}
+                >
                   <Button color="primary" variant="outlined" fullWidth>
                     Carrinho
                   </Button>

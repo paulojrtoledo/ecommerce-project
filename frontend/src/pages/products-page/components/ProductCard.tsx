@@ -24,14 +24,9 @@ interface ProductCardProps {
 export default function ProductCard({ product, onAddToCart }: ProductCardProps) {
     const [isHovered, setIsHovered] = useState(false);
     const [noCarrinho, setNoCarrinho] = useState(false);
-    
-    // Usando o FavoritesContext
     const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
-    
-    // Estado sincronizado com o context
     const [isFavorito, setIsFavorito] = useState(false);
 
-    // Sincroniza o estado local com o context quando o componente monta ou o produto muda
     useEffect(() => {
         setIsFavorito(isFavorite(product.id));
     }, [product.id, isFavorite]);
@@ -66,7 +61,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
         <Card
             component="div"
             sx={{
-                backgroundColor: "#f7fafc",
+                backgroundColor: "#f7fafc", 
                 height: '100%',
                 padding: '16px',
                 transition: 'transform 0.2s ease-in-out',
@@ -127,22 +122,22 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
             </Box>
 
             <CardContent>
-                <Typography variant="h6" gutterBottom color={"#081c15"}>
+                <Typography variant="h6" gutterBottom color={"#081c15"}> 
                     {product.name}
                 </Typography>
 
-                <Typography variant="body2" color="#081c15" sx={{ mb: 2 }}>
+                <Typography variant="body2" color="#081c15" sx={{ mb: 2 }}> 
                     {product.description}
                 </Typography>
 
-                <Typography variant="h6" color="#081c15" sx={{ mb: 1 }}>
+                <Typography variant="h6" color="#081c15" sx={{ mb: 1 }}> 
                     R$ {product.price.toFixed(2)}
                 </Typography>
 
-                <Typography variant="caption" color="#081c15" display="block">
+                <Typography variant="caption" color="#081c15" display="block"> 
                     À vista no PIX
                 </Typography>
-                <Typography variant="caption" color="#081c15" display="block">
+                <Typography variant="caption" color="#081c15" display="block"> 
                     ou em até 8x de: R$ {calcularParcela(product.price)}
                 </Typography>
             </CardContent>

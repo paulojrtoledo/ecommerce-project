@@ -1,7 +1,7 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
-import AppTheme from '../shared-theme/AppTheme';
+import { useThemeContext } from '../../contexts/ThemeContext'; 
 import HeaderProducts from './components/HeaderProducts';
 import HardwareProducts from './components/HardwareProducts';
 import SmartDevicesProducts from './components/SmartDevicesProducts';
@@ -11,8 +11,10 @@ import FAQ from '../home-page/components/FAQ';
 import Footer from '../home-page/components/Footer';
 
 export default function ProductsPage(props: { disableCustomTheme?: boolean }) {
+  const { mode } = useThemeContext(); 
+  
   return (
-    <AppTheme {...props}>
+    <>
       <CssBaseline enableColorScheme />
 
       <HeaderProducts />
@@ -29,6 +31,6 @@ export default function ProductsPage(props: { disableCustomTheme?: boolean }) {
         <Divider />
         <Footer />
       </div>
-    </AppTheme>
+    </>
   );
 }

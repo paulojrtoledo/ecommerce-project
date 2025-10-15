@@ -207,7 +207,7 @@ export default function NatureTechCloud(props: NatureTechCloudProps) {
                           backgroundColor: '#0b5d1e',
                           color: 'white',
                           '&:hover': {
-                            backgroundColor: '#077353', // Cor mais escura no hover
+                            backgroundColor: '#077353', 
                           }
                         }
                         : {}

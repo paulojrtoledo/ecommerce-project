@@ -139,7 +139,7 @@ export default function Reviews(props: ReviewsProps) {
                       fontWeight: 'bold'
                     }}
                   />
-                  {/* Adicione as estrelas apenas se existir rating */}
+          
                   {review.rating && (
                     <Rating value={review.rating} readOnly size="small" />
                   )}

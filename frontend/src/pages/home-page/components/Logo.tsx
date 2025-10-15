@@ -1,14 +1,20 @@
 import * as React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom"; 
 
 export default function Logo() {
+  const theme = useTheme();
+  
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
       <img
         src="/icons/nature-tech-icon.png" 
         alt="Nature Tech logo"
-        style={{ width: 32, height: 32 }}
+        style={{ 
+          width: 32, 
+          height: 32,
+          filter: theme.palette.mode === 'dark' ? 'brightness(0) invert(1)' : 'none'
+        }}
       />
 
       <Typography
@@ -17,7 +23,7 @@ export default function Logo() {
         variant="body1"
         sx={{ 
           fontWeight: "bold", 
-          color: "#000000",
+          color: theme.palette.mode === 'dark' ? '#E8F5E8' : '#000000',
           textDecoration: "none", 
           "&:hover": {
             opacity: 0.8,

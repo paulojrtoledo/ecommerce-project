@@ -41,7 +41,7 @@ export default function LogoCollection() {
         component="p"
         variant="subtitle2"
         align="center"
-        sx={{ color: "#000000", fontSize: '16px' }}
+        sx={{ color: "#FFFFFF", fontSize: '16px' }}
       >
         Grandes empresas confiam em nós
       </Typography>

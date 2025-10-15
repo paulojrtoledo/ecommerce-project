@@ -28,7 +28,6 @@ interface FavoritesProviderProps {
 }
 
 export function FavoritesProvider({ children }: FavoritesProviderProps) {
-  // Carrega os favoritos do localStorage ao inicializar
   const [favorites, setFavorites] = useState<Product[]>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('favorites');
@@ -36,8 +35,6 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
     }
     return [];
   });
-
-  // Salva no localStorage sempre que os favoritos mudarem
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);

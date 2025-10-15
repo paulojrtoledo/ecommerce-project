@@ -11,10 +11,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
-import Logo from './Logo';
+import ColorModeIconDropdown from '../shared-theme/ColorModeIconDropdown';
+import Logo from '../home-page/components/Logo';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useThemeContext } from '../../../contexts/ThemeContext';
+import { useThemeContext } from '../../contexts/ThemeContext';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -30,10 +30,9 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   padding: '8px 12px',
 }));
 
-export default function AppAppBar() {
+export default function HeaderExternal() {
   const [open, setOpen] = React.useState(false);
-
-  const { toggleColorMode, mode } = useThemeContext();
+  const { mode, toggleColorMode } = useThemeContext();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -54,59 +53,65 @@ export default function AppAppBar() {
         <StyledToolbar variant="dense" disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
             <Logo />
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 28 }}>
-           
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 28, gap: 2 }}>
+              
               <Button
                 variant="text"
                 color="info"
                 size="small"
                 component="a"
                 href="/produtos"
-                rel="noopener noreferrer"
+                sx={{ color: 'text.primary' }}
               >
                 Produtos
               </Button>
-
               <Button
                 variant="text"
                 color="info"
                 size="small"
                 component="a"
-                href="#reviews"
+                href="/#reviews"
+                sx={{ color: 'text.primary' }}
               >
                 Reviews
               </Button>
+
               <Button
                 variant="text"
                 color="info"
                 size="small"
                 component="a"
-                href="#highlights"
+                href="/#highlights"
+                sx={{ color: 'text.primary' }}
               >
                 Destaques
               </Button>
+
               <Button
                 variant="text"
                 color="info"
                 size="small"
                 component="a"
-                href="#ntc"
+                href="/#ntc"
+                sx={{ color: 'text.primary' }}
               >
                 NTC
               </Button>
+
               <Button
                 variant="text"
                 color="info"
                 size="small"
                 component="a"
-                href="#faq"
+                href="/#faq"
+                sx={{ color: 'text.primary' }}
               >
                 Dúvidas
               </Button>
+
             </Box>
           </Box>
 
-          {/* SEÇÃO DESKTOP */}
           <Box
             sx={{
               display: { xs: 'none', md: 'flex' },
@@ -114,7 +119,6 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
-
             <IconButton
               color="inherit"
               size="small"
@@ -130,7 +134,7 @@ export default function AppAppBar() {
             >
               <FavoriteIcon />
             </IconButton>
-            {/* CARRINHO */}
+
             <Button
               variant="text"
               color="info"
@@ -138,6 +142,7 @@ export default function AppAppBar() {
               component="a"
               href="/meu-carrinho"
               rel="noopener noreferrer"
+              sx={{ color: 'text.primary' }}
             >
               Carrinho
             </Button>
@@ -178,25 +183,21 @@ export default function AppAppBar() {
                   </IconButton>
                 </Box>
 
-                <MenuItem
-                  component="a"
-                  href="/produtos"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Produtos
-                </MenuItem>
-                <MenuItem component="a" href="#reviews">
+                {/* MENU MOBILE COM LINKS PARA HOME + ÂNCORA */}
+                <MenuItem component="a" href="/#reviews" onClick={toggleDrawer(false)}>
                   Reviews
                 </MenuItem>
-                <MenuItem component="a" href="#highlights">
-                  Highlights
+                <MenuItem component="a" href="/#highlights" onClick={toggleDrawer(false)}>
+                  Destaques
                 </MenuItem>
-                <MenuItem component="a" href="#ntc">
+                <MenuItem component="a" href="/#ntc" onClick={toggleDrawer(false)}>
                   NTC
                 </MenuItem>
-                <MenuItem component="a" href="#faq">
-                  FAQ
+                <MenuItem component="a" href="/#faq" onClick={toggleDrawer(false)}>
+                  Dúvidas
+                </MenuItem>
+                <MenuItem component="a" href="/produtos" onClick={toggleDrawer(false)}>
+                  Produtos
                 </MenuItem>
                 <Divider sx={{ my: 3 }} />
 
@@ -217,12 +218,7 @@ export default function AppAppBar() {
                   onClick={toggleDrawer(false)}
                   sx={{ p: 0 }}
                 >
-                  <Button
-                    color="primary"
-                    variant="outlined"
-                    fullWidth
-                    component="span"
-                  >
+                  <Button color="primary" variant="outlined" fullWidth>
                     Carrinho
                   </Button>
                 </MenuItem>

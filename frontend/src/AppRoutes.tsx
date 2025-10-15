@@ -6,7 +6,6 @@ import CartPage from './pages/cart-page/CartPage';
 import FavoritesPage from './pages/favorites-page/FavoritesPage';
 import LoginPage from './pages/login-page/LoginPage';
 
-// Dentro das rotas:
 <Route path="/login" element={<LoginPage />} />
 
 function AppRoutes() {

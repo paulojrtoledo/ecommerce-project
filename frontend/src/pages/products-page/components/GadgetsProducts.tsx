@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useCart } from '../../../contexts/CartContext';
+import { useThemeContext } from '../../../contexts/ThemeContext'; 
 import ProductCard from './ProductCard';
 
 const products = [
@@ -63,6 +64,9 @@ interface GadgetsProductsProps {
 
 export default function GadgetsProducts(props: GadgetsProductsProps) {
   const { addItem } = useCart();
+  const { mode } = useThemeContext(); 
+
+  console.log('🎮 GadgetsProducts - Mode:', mode); 
 
   const handleAddToCart = (product: any) => {
     console.log('Adicionando produto:', product);
@@ -78,18 +82,11 @@ export default function GadgetsProducts(props: GadgetsProductsProps) {
   return (
     <Box
       id={props.id}
-      sx={(theme) => ({
+      sx={{
         width: "100%",
-        backgroundRepeat: "no-repeat",
-        backgroundImage:
-          theme.palette.mode === "dark"
-            ? "radial-gradient(ellipse 80% 50% at 50% -20%, #1a331a, transparent)"
-            : "radial-gradient(ellipse 90% 80% at 50% -20%, #1a331a, transparent)",
         py: 18,
-        backgroundColor: theme.palette.mode === "dark"
-          ? "hsl(0, 0%, 0%)"
-          : "#98c9a3",
-      })}
+        minHeight: '100vh',
+      }}
     >
       <Container maxWidth="lg">
         <Typography
@@ -100,7 +97,8 @@ export default function GadgetsProducts(props: GadgetsProductsProps) {
           sx={{
             mb: 4,
             pt: 4,
-            color: theme => theme.palette.mode === "dark" ? "white" : "#98c9a3",
+            color: 'text.primary',
+            fontWeight: 'bold',
           }}
         >
           Periféricos e Acessórios
@@ -113,8 +111,9 @@ export default function GadgetsProducts(props: GadgetsProductsProps) {
             maxWidth: '800px',
             mx: 'auto',
             mb: 6,
-            color: '#FFFFFF',
+            color: 'text.secondary',
             fontSize: '1.1rem',
+            lineHeight: 1.6,
           }}
         >
           Precisão e estilo para completar seu ambiente tech.

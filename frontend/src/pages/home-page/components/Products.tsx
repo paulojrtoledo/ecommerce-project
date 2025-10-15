@@ -214,7 +214,6 @@ export default function Products() {
           </Typography>
         </Box>
 
-        {/* 👇 ADICIONE O CARD AQUI 👇 */}
         <Box sx={{
           mb: -65,
           display: { xs: 'none', md: 'block' },
@@ -272,7 +271,6 @@ export default function Products() {
             </Swiper>
           </Card>
         </Box>
-        {/* 👆 FIM DO CARD 👆 */}
 
         <Box
           sx={{

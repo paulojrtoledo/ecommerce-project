@@ -15,10 +15,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation, Pagination } from "swiper/modules";
 
+import { useThemeContext } from '../../../contexts/ThemeContext';
+
+import { useTheme } from '@mui/material/styles'; 
+
 const images = [
   "/nt-pic2.png",
   "/nt-pic1.png",
-  "/imagem-exemplo-3.png",
+  "/nt-pic3.jpeg",
 ];
 
 const StyledBox = styled("div")(({ theme }) => ({
@@ -44,21 +48,19 @@ const StyledBox = styled("div")(({ theme }) => ({
 }));
 
 export default function Hero() {
+  const { mode, toggleColorMode } = useThemeContext();
+  const theme = useTheme();
+
+   console.log('Tema no Hero:', {
+    mode: mode,
+    paletteMode: theme.palette.mode,
+    background: theme.palette.background.default
+  });
+  
   return (
     <Box
       id="hero"
-      sx={(theme) => ({
-        width: "100%",
-        backgroundRepeat: "no-repeat",
-        backgroundImage:
-          theme.palette.mode === "dark"
-            ? "radial-gradient(ellipse 80% 50% at 50% -20%, #1a331a, transparent)" // Verde escuro em cima
-            : "radial-gradient(ellipse 90% 80% at 50% -20%, #0a0908, transparent)", // Preto em cima
-        backgroundColor: theme.palette.mode === "dark"
-          ? "hsl(0, 0%, 0%)" // Fundo preto no dark
-          : "#98c9a3", // Fundo verde 
-      })}
-    >
+      sx={{ width: "100%",}}> 
       <Container
         sx={{
           display: "flex",
@@ -68,7 +70,6 @@ export default function Hero() {
           pb: { xs: 8, sm: 12 },
         }}
       >
-        {/*  Textos E Caixa*/}
         <Stack
           spacing={2}
           useFlexGap
@@ -137,12 +138,12 @@ export default function Hero() {
                   opacity: 1,
                 },
                 '& .MuiOutlinedInput-root': {
-                  color: 'white', // Cor do texto digitado 
+                  color: 'white', 
                   '& fieldset': {
-                    borderColor: 'black', // Borda branca
+                    borderColor: 'black', 
                   },
                   '&:hover fieldset': {
-                    borderColor: 'black', // Borda branca no hover
+                    borderColor: 'black', 
                   },
                 },
               }}
@@ -160,7 +161,7 @@ export default function Hero() {
                 backgroundColor: "#85b88e",
                 color: "black",
                 '&:hover': {
-                  backgroundColor: "#85b88e", // Cor levemente mais escura no hover
+                  backgroundColor: "#85b88e", 
                   color: "black",
                 },
               }}
@@ -181,7 +182,7 @@ export default function Hero() {
                 color: "white",
                 textDecoration: "underline",
                 '&:hover': {
-                  color: "grey.300", // Cinza claro no hover
+                  color: "grey.300", 
                 }
               }}
             >

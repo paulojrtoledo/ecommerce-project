@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import AppTheme from '../shared-theme/AppTheme';
+import { useThemeContext } from '../../contexts/ThemeContext'; 
 import AppAppBar from '../home-page/components/AppAppBar';
 import Footer from '../home-page/components/Footer';
 import {
@@ -9,14 +9,13 @@ import {
     Typography,
     Button,
     TextField,
-    Card,
-    CardContent,
     Divider,
     alpha,
     styled,
     Stack,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
+import HeaderExternal from '../components-others/HeaderExternal';
 
 const StyledContentBox = styled(Box)(({ theme }) => ({
     borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
@@ -34,34 +33,31 @@ const StyledContentBox = styled(Box)(({ theme }) => ({
 export default function LoginPage(props: { disableCustomTheme?: boolean }) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const { mode } = useThemeContext(); 
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        // Lógica de login aqui
         console.log('Login attempt:', { email, password });
     };
 
     return (
-        <AppTheme {...props}>
+        <>
             <CssBaseline enableColorScheme />
-            <AppAppBar />
+            <HeaderExternal />
 
             <Box
-                sx={(theme) => ({
+                sx={{ 
                     width: "100%",
-                    backgroundRepeat: "no-repeat",
-                    backgroundImage:
-                        theme.palette.mode === "dark"
-                            ? "radial-gradient(ellipse 80% 50% at 50% -20%, #1a331a, transparent)"
-                            : "radial-gradient(ellipse 90% 80% at 50% -20%, #0a0908, transparent)",
-                    backgroundColor: theme.palette.mode === "dark"
-                        ? "hsl(0, 0%, 0%)"
-                        : "#98c9a3",
                     py: 8,
                     minHeight: "100vh",
                     display: 'flex',
                     alignItems: 'center',
-                })}
+                    background: theme => theme.palette.mode === 'dark' 
+                        ? 'radial-gradient(ellipse 50% 30% at 50% -8%, #98c9a3, #000000)'
+                        : 'radial-gradient(ellipse 60% 35% at 50% -12%, #0a0908, #98c9a3)',
+                    backgroundAttachment: 'fixed',
+                    backgroundRepeat: 'no-repeat',
+                }}
             >
                 <Container maxWidth="sm" sx={{ py: 8 }}>
                     <StyledContentBox>
@@ -70,7 +66,7 @@ export default function LoginPage(props: { disableCustomTheme?: boolean }) {
                             component="h1"
                             textAlign="center"
                             gutterBottom
-                            sx={{ mb: 3, color: '#000000' }}
+                            sx={{ mb: 3, color: 'text.primary' }} 
                         >
                             Entrar na Conta
                         </Typography>
@@ -87,23 +83,19 @@ export default function LoginPage(props: { disableCustomTheme?: boolean }) {
                                     variant="outlined"
                                     sx={{
                                         '& .MuiOutlinedInput-root': {
-                                            color: 'black',
+                                            color: 'text.primary', 
                                             '& fieldset': {
-                                                borderColor: 'rgba(255,255,255,0.3)',
+                                                borderColor: 'divider', 
                                             },
                                             '&:hover fieldset': {
-                                                borderColor: 'rgba(255,255,255,0.5)',
+                                                borderColor: 'primary.main', 
                                             },
                                             '&.Mui-focused fieldset': {
-                                                borderColor: 'primary.main',
+                                                borderColor: 'primary.main', 
                                             },
                                         },
                                         '& .MuiInputLabel-root': {
-                                            color: 'rgba(255,255,255,0.7)',
-                                        },
-                                        '& .MuiInputBase-input::placeholder': {
-                                            color: '#000000',
-                                            opacity: 1,
+                                            color: 'text.secondary', 
                                         },
                                     }}
                                 />
@@ -118,23 +110,19 @@ export default function LoginPage(props: { disableCustomTheme?: boolean }) {
                                     variant="outlined"
                                     sx={{
                                         '& .MuiOutlinedInput-root': {
-                                            color: 'black',
+                                            color: 'text.primary', 
                                             '& fieldset': {
-                                                borderColor: 'rgba(255,255,255,0.3)',
+                                                borderColor: 'divider', 
                                             },
                                             '&:hover fieldset': {
-                                                borderColor: 'rgba(255,255,255,0.5)',
+                                                borderColor: 'primary.main', 
                                             },
                                             '&.Mui-focused fieldset': {
-                                                borderColor: 'primary.main',
+                                                borderColor: 'primary.main', 
                                             },
                                         },
                                         '& .MuiInputLabel-root': {
-                                            color: 'rgba(255,255,255,0.7)',
-                                        },
-                                        '& .MuiInputBase-input::placeholder': {
-                                            color: '#000000', 
-                                            opacity: 1,
+                                            color: 'text.secondary', 
                                         },
                                     }}
                                 />
@@ -151,10 +139,10 @@ export default function LoginPage(props: { disableCustomTheme?: boolean }) {
                             </Stack>
                         </form>
 
-                        <Divider sx={{ my: 3, borderColor: 'rgba(255,255,255,0.2)' }} />
+                        <Divider sx={{ my: 3 }} /> 
 
                         <Box sx={{ textAlign: 'center' }}>
-                            <Typography variant="body2" sx={{ color: '#000000', mb: 2 }}>
+                            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}> 
                                 Ainda não tem uma conta?
                             </Typography>
                             <Button
@@ -163,12 +151,11 @@ export default function LoginPage(props: { disableCustomTheme?: boolean }) {
                                 variant="outlined"
                                 fullWidth
                                 sx={{
-                                    borderColor: 'rgba(255,255,255,0.3)',
-                                    color: 'white',
-                                    backgroundColor: '#000000',
+                                    borderColor: 'divider', 
+                                    color: 'text.primary', 
                                     '&:hover': {
                                         borderColor: 'primary.main',
-                                        backgroundColor: '#c43420'
+                                        backgroundColor: 'action.hover'
                                     }
                                 }}
                             >
@@ -182,7 +169,7 @@ export default function LoginPage(props: { disableCustomTheme?: boolean }) {
                                 to="/recuperar-senha"
                                 variant="text"
                                 size="small"
-                                sx={{ color: '#c43420', fontWeight: 'bold' }}
+                                sx={{ color: 'error.main' }}
                             >
                                 Esqueci minha senha
                             </Button>
@@ -192,6 +179,6 @@ export default function LoginPage(props: { disableCustomTheme?: boolean }) {
             </Box>
 
             <Footer />
-        </AppTheme>
+        </>
     );
 }

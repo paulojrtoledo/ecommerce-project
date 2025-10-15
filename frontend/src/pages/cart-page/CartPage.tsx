@@ -1,7 +1,6 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import AppTheme from '../shared-theme/AppTheme';
-import AppAppBar from '../home-page/components/AppAppBar';
+import { useThemeContext } from '../../contexts/ThemeContext'; 
 import Footer from '../home-page/components/Footer';
 import {
   Box,
@@ -13,7 +12,6 @@ import {
   Grid,
   Divider,
   IconButton,
-  TextField,
   Stack,
   alpha,
   styled,
@@ -23,6 +21,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
+import HeaderExternal from '../components-others/HeaderExternal';
 
 const StyledContentBox = styled(Box)(({ theme }) => ({
   borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
@@ -35,8 +34,24 @@ const StyledContentBox = styled(Box)(({ theme }) => ({
   marginTop: '20px',
 }));
 
+const QuantityButton = styled(Button)(({ theme }) => ({
+  minWidth: '60px',
+  height: '40px',
+  textAlign: 'center',
+  fontSize: '16px',
+  fontWeight: 'bold',
+  color: theme.palette.text.primary,
+  border: `2px solid ${theme.palette.divider}`,
+  borderRadius: '4px',
+  backgroundColor: theme.palette.background.paper,
+  '&:hover': {
+    backgroundColor: theme.palette.action.hover,
+  },
+}));
+
 export default function CartPage(props: { disableCustomTheme?: boolean }) {
   const { items, updateQuantity, removeItem } = useCart();
+  const { mode } = useThemeContext(); 
 
   React.useEffect(() => {
     console.log('CartPage - Current items:', items);
@@ -47,23 +62,20 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
   const total = subtotal + shipping;
 
   return (
-    <AppTheme {...props}>
+    <>
       <CssBaseline enableColorScheme />
-      <AppAppBar />
+      <HeaderExternal />
 
       <Box
         sx={(theme) => ({
           width: "100%",
-          backgroundRepeat: "no-repeat",
-          backgroundImage:
-            theme.palette.mode === "dark"
-              ? "radial-gradient(ellipse 80% 50% at 50% -20%, #1a331a, transparent)" // Verde escuro em cima
-              : "radial-gradient(ellipse 90% 80% at 50% -20%, #0a0908, transparent)", // Preto em cima
-          backgroundColor: theme.palette.mode === "dark"
-            ? "hsl(0, 0%, 0%)" // Fundo preto no dark
-            : "#98c9a3", // Fundo verde 
           py: 8,
-          minHeight: "100vh",
+          minHeight: '100vh',
+          background: theme.palette.mode === 'dark'
+            ? 'radial-gradient(ellipse 50% 30% at 50% -10%, #98c9a3, #000000)'
+            : 'radial-gradient(ellipse 60% 40% at 50% -15%, #0a0908, #98c9a3)', 
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat',
         })}
       >
         <Container maxWidth="lg" sx={{ py: 15 }}>
@@ -73,7 +85,7 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
               component="h1"
               textAlign="center"
               gutterBottom
-              sx={{ mb: 4 }}
+              sx={{ mb: 4, color: 'text.primary' }} 
             >
               Meu Carrinho
             </Typography>
@@ -89,7 +101,7 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
               >
                 <Typography
                   variant="h6"
-                  color="text.secondary"
+                  color="text.secondary" 
                   gutterBottom
                   textAlign="center"
                 >
@@ -108,9 +120,10 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
               <Grid container spacing={4}>
                 <Grid item xs={12} md={8}>
                   {items.map((item) => (
-                    <Card key={item.id} sx={{ mb: 2 }}>
-                      <CardContent>
+                    <Card key={item.id} sx={{ mb: 2, overflow: 'visible' }}> 
+                      <CardContent sx={{ padding: '16px', '&:last-child': { paddingBottom: '16px' } }}> 
                         <Grid container spacing={2} alignItems="center">
+                    
                           <Grid item xs={3} sm={2}>
                             <Box
                               component="img"
@@ -124,8 +137,8 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
                             />
                           </Grid>
 
-                          <Grid item xs={9} sm={6}>
-                            <Typography variant="h6" component="h3">
+                          <Grid item xs={9} sm={4}> 
+                            <Typography variant="h6" component="h3" color="text.primary" noWrap> 
                               {item.name}
                             </Typography>
                             <Typography variant="h6" color="primary">
@@ -133,40 +146,78 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
                             </Typography>
                           </Grid>
 
-                          <Grid item xs={6} sm={2}>
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                          <Grid item xs={6} sm={3}> 
+                            <Stack direction="row" alignItems="center" spacing={1} justifyContent="center">
                               <IconButton
                                 size="small"
                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                disabled={item.quantity <= 1}
+                                sx={{
+                                  color: item.quantity <= 1 ? 'text.disabled' : 'text.primary',
+                                  border: '1px solid',
+                                  borderColor: 'divider',
+                                  borderRadius: 1,
+                                  width: 40,
+                                  height: 40,
+                                  flexShrink: 0,
+                                }}
                               >
                                 <RemoveIcon />
                               </IconButton>
-                              <TextField
-                                size="small"
-                                value={item.quantity}
-                                inputProps={{
-                                  style: { textAlign: 'center', width: 40 },
-                                  readOnly: true,
-                                }}
-                                variant="outlined"
-                              />
+                              
+                              <QuantityButton>
+                                {item.quantity}
+                              </QuantityButton>
+                              
                               <IconButton
                                 size="small"
                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                sx={{
+                                  color: 'text.primary',
+                                  border: '1px solid',
+                                  borderColor: 'divider',
+                                  borderRadius: 1,
+                                  width: 40,
+                                  height: 40,
+                                  flexShrink: 0,
+                                }}
                               >
                                 <AddIcon />
                               </IconButton>
                             </Stack>
                           </Grid>
 
-                          <Grid item xs={6} sm={2}>
-                            <Stack direction="row" spacing={1} alignItems="center">
-                              <Typography variant="h6">
+                          <Grid item xs={6} sm={3}> 
+                            <Stack 
+                              direction="row" 
+                              spacing={1} 
+                              alignItems="center" 
+                              justifyContent="flex-end"
+                              sx={{ width: '100%' }}
+                            >
+                              <Typography 
+                                variant="h6" 
+                                color="text.primary"
+                                sx={{ 
+                                  whiteSpace: 'nowrap',
+                                  minWidth: '100px',
+                                  textAlign: 'right',
+                                  flexShrink: 0,
+                                }}
+                              > 
                                 R$ {(item.price * item.quantity).toFixed(2)}
                               </Typography>
                               <IconButton
                                 color="error"
                                 onClick={() => removeItem(item.id)}
+                                sx={{
+                                  border: '1px solid',
+                                  borderColor: 'divider',
+                                  borderRadius: 1,
+                                  flexShrink: 0,
+                                  width: 40,
+                                  height: 40,
+                                }}
                               >
                                 <DeleteIcon />
                               </IconButton>
@@ -181,19 +232,19 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
                 <Grid item xs={12} md={4}>
                   <Card>
                     <CardContent>
-                      <Typography variant="h6" gutterBottom>
+                      <Typography variant="h6" gutterBottom color="text.primary"> 
                         Resumo do Pedido
                       </Typography>
 
                       <Stack spacing={2}>
                         <Box display="flex" justifyContent="space-between">
-                          <Typography>Subtotal</Typography>
-                          <Typography>R$ {subtotal.toFixed(2)}</Typography>
+                          <Typography color="text.primary">Subtotal</Typography> 
+                          <Typography color="text.primary">R$ {subtotal.toFixed(2)}</Typography> 
                         </Box>
 
                         <Box display="flex" justifyContent="space-between">
-                          <Typography>Frete</Typography>
-                          <Typography>
+                          <Typography color="text.primary">Frete</Typography> 
+                          <Typography color="text.primary"> 
                             {shipping === 0 ? 'Grátis' : `R$ ${shipping.toFixed(2)}`}
                           </Typography>
                         </Box>
@@ -201,8 +252,8 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
                         <Divider />
 
                         <Box display="flex" justifyContent="space-between">
-                          <Typography variant="h6">Total</Typography>
-                          <Typography variant="h6">R$ {total.toFixed(2)}</Typography>
+                          <Typography variant="h6" color="text.primary">Total</Typography> 
+                          <Typography variant="h6" color="text.primary">R$ {total.toFixed(2)}</Typography> 
                         </Box>
 
                         <Button
@@ -233,6 +284,6 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
       </Box>
 
       <Footer />
-    </AppTheme>
+    </>
   );
 }

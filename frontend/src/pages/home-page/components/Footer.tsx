@@ -15,9 +15,9 @@ import Logo from './Logo';
 
 function Copyright() {
   return (
-    <Typography variant="body2" sx={{ color: '#000000', mt: 1 }}>
+    <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
       {'Copyright © '}
-      <Link color="#000000" href="https://mui.com/">
+      <Link color="text.secondary" href="https://mui.com/">
         Nature Tech
       </Link>{' '}
       {new Date().getFullYear()}
@@ -55,13 +55,15 @@ export default function Footer() {
         >
           <Box sx={{ width: { xs: '100%', sm: '60%' } }}>
             <Logo />
-            <Typography variant="body2" gutterBottom sx={{ fontWeight: 600, mt: 2, color: '#000000' }}>
+            <Typography variant="body2" gutterBottom sx={{ fontWeight: 600, mt: 2, color: 'text.primary' }}>
               Cadastre-se no nosso Canal de Notícias
             </Typography>
-            <Typography variant="body2" sx={{ color: '#000000', mb: 2 }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
               Acompanhe novidade semanais, sempre sem spam!
             </Typography>
-            <InputLabel htmlFor="email-newsletter" sx={{ color: '#000000' }}>Email</InputLabel>
+            <InputLabel htmlFor="email-newsletter" sx={{ color: 'text.primary' }}>
+              Email
+            </InputLabel>
             <Stack direction="row" spacing={1} sx={{ gap: 1 }}>
               <TextField
                 id="email-newsletter"
@@ -73,74 +75,86 @@ export default function Footer() {
                 inputProps={{
                   autoComplete: 'off',
                   'aria-label': 'Enter your email address',
-                  style: { color: '#000000' }
                 }}
                 sx={{ 
                   width: '250px',
                   '& .MuiOutlinedInput-root': {
+                    color: 'text.primary',
                     '& fieldset': {
-                      borderColor: '#000000',
+                      borderColor: 'text.primary',
                     },
                     '&:hover fieldset': {
-                      borderColor: '#000000',
+                      borderColor: 'primary.main',
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: '#000000',
+                      borderColor: 'primary.main',
                     },
-                  }
+                  },
+                  '& .MuiInputBase-input::placeholder': {
+                    color: 'text.secondary',
+                    opacity: 0.7,
+                  },
                 }}
               />
-              <Button variant="contained" color="primary" size="small" sx={{ flexShrink: 0 }}>
+              <Button 
+                variant="contained" 
+                color="primary" 
+                size="small" 
+                sx={{ flexShrink: 0 }}
+              >
                 Inscreva-se
               </Button>
             </Stack>
           </Box>
         </Box>
 
-        <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', gap: 1, color: '#000000'  }}>
-          <Typography variant="body2" sx={{ fontWeight: 500, color: '#000000' }}>
+        <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', gap: 1 }}>
+          <Typography variant="body2" sx={{ fontWeight: 500, color: 'text.primary' }}>
+            Produtos
           </Typography>
-          <Link color="#000000" variant="body2" href="#">
+          <Link color="text.secondary" variant="body2" href="#">
             Produtos
           </Link>
-          <Link color="#000000" variant="body2" href="#">
+          <Link color="text.secondary" variant="body2" href="#">
             Reviews
           </Link>
-          <Link color="#000000" variant="body2" href="#">
+          <Link color="text.secondary" variant="body2" href="#">
             Destaques
           </Link>
-          <Link color="#000000" variant="body2" href="#">
+          <Link color="text.secondary" variant="body2" href="#">
             Nature Tech Cloud
           </Link>
-          <Link color="#000000" variant="body2" href="#">
+          <Link color="text.secondary" variant="body2" href="#">
             Dúvidas Frequentes
           </Link>
         </Box>
 
         <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', gap: 1 }}>
-          <Typography variant="body2" sx={{ fontWeight: 500, color: '#000000' }}>
+          <Typography variant="body2" sx={{ fontWeight: 500, color: 'text.primary' }}>
+            Empresa
           </Typography>
-          <Link color="#000000" variant="body2" href="#">
+          <Link color="text.secondary" variant="body2" href="#">
             Sobre Nós
           </Link>
-          <Link color="#000000" variant="body2" href="#">
+          <Link color="text.secondary" variant="body2" href="#">
             Carreiras
           </Link>
-          <Link color="#000000" variant="body2" href="#">
+          <Link color="text.secondary" variant="body2" href="#">
             Mídia
           </Link>
         </Box>
 
         <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', gap: 1 }}>
-          <Typography variant="body2" sx={{ fontWeight: 500, color: '#000000' }}>
+          <Typography variant="body2" sx={{ fontWeight: 500, color: 'text.primary' }}>
+            Legal
           </Typography>
-          <Link color="#000000" variant="body2" href="#">
+          <Link color="text.secondary" variant="body2" href="#">
             Termos
           </Link>
-          <Link color="#000000" variant="body2" href="#">
+          <Link color="text.secondary" variant="body2" href="#">
             Privacidade
           </Link>
-          <Link color="#000000" variant="body2" href="#">
+          <Link color="text.secondary" variant="body2" href="#">
             Contatos
           </Link>
         </Box>
@@ -149,31 +163,50 @@ export default function Footer() {
       <Box
         sx={{
           display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
           justifyContent: 'space-between',
+          alignItems: { xs: 'flex-start', sm: 'center' },
           pt: { xs: 4, sm: 8 },
           width: '100%',
           borderTop: '1px solid',
           borderColor: 'divider',
+          gap: { xs: 2, sm: 0 },
         }}
       >
         <Box>
-          <Link color="#000000" variant="body2" href="#">
+          <Link color="text.secondary" variant="body2" href="#">
             Política de Privacidade
           </Link>
-          <Typography sx={{ display: 'inline', mx: 0.5, opacity: 0.5, color: '#000000' }}>&nbsp;•&nbsp;</Typography>
-          <Link color="#000000" variant="body2" href="#">
+          <Typography sx={{ display: 'inline', mx: 0.5, opacity: 0.5, color: 'text.secondary' }}>
+            &nbsp;•&nbsp;
+          </Typography>
+          <Link color="text.secondary" variant="body2" href="#">
             Termos de Serviço
           </Link>
           <Copyright />
         </Box>
 
-        <Stack direction="row" spacing={1} sx={{ justifyContent: 'flex-start', color: '#000000', gap: 1 }}>
+        <Stack 
+          direction="row" 
+          spacing={1} 
+          sx={{ 
+            justifyContent: { xs: 'flex-start', sm: 'flex-end' },
+            gap: 1 
+          }}
+        >
           <IconButton
             color="inherit"
             size="small"
             href="https://youtube.com"
             aria-label="YouTube"
-            sx={{ alignSelf: 'center', color: '#000000' }}
+            sx={{ 
+              alignSelf: 'center', 
+              color: 'text.secondary',
+              '&:hover': {
+                color: 'primary.main',
+                backgroundColor: 'action.hover'
+              }
+            }}
           >
             <YouTubeIcon />
           </IconButton>
@@ -182,7 +215,14 @@ export default function Footer() {
             size="small"
             href="https://instagram.com"
             aria-label="Instagram"
-            sx={{ alignSelf: 'center', color: '#000000' }}
+            sx={{ 
+              alignSelf: 'center', 
+              color: 'text.secondary',
+              '&:hover': {
+                color: 'primary.main',
+                backgroundColor: 'action.hover'
+              }
+            }}
           >
             <InstagramIcon />
           </IconButton>
@@ -191,7 +231,14 @@ export default function Footer() {
             size="small"
             href="https://x.com/MaterialUI"
             aria-label="X"
-            sx={{ alignSelf: 'center', color: '#000000' }}
+            sx={{ 
+              alignSelf: 'center', 
+              color: 'text.secondary',
+              '&:hover': {
+                color: 'primary.main',
+                backgroundColor: 'action.hover'
+              }
+            }}
           >
             <TwitterIcon />
           </IconButton>

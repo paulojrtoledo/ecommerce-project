@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import AppTheme from '../shared-theme/AppTheme';
+import { useThemeContext } from '../../contexts/ThemeContext'; 
 import AppAppBar from '../home-page/components/AppAppBar';
 import Footer from '../home-page/components/Footer';
 import {
@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import { useFavorites } from '../../contexts/FavoritesContext';
 import ProductCard from '../products-page/components/ProductCard';
 import { useCart } from '../../contexts/CartContext';
+import HeaderExternal from '../components-others/HeaderExternal';
 
 const StyledContentBox = styled(Box)(({ theme }) => ({
     borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
@@ -31,8 +32,8 @@ const StyledContentBox = styled(Box)(({ theme }) => ({
 export default function FavoritesPage(props: { disableCustomTheme?: boolean }) {
     const { favorites } = useFavorites();
     const { addItem } = useCart();
+    const { mode } = useThemeContext(); 
 
-    // Função para adicionar ao carrinho
     const handleAddToCart = (product: any) => {
         console.log('Adicionando produto ao carrinho:', product);
         addItem({
@@ -45,24 +46,21 @@ export default function FavoritesPage(props: { disableCustomTheme?: boolean }) {
     };
 
     return (
-        <AppTheme {...props}>
+        <>
             <CssBaseline enableColorScheme />
-            <AppAppBar />
+            <HeaderExternal />
 
             <Box
-                sx={(theme) => ({
+                sx={{ 
                     width: "100%",
-                    backgroundRepeat: "no-repeat",
-                    backgroundImage:
-                        theme.palette.mode === "dark"
-                            ? "radial-gradient(ellipse 80% 50% at 50% -20%, #1a331a, transparent)"
-                            : "radial-gradient(ellipse 90% 80% at 50% -20%, #0a0908, transparent)",
-                    backgroundColor: theme.palette.mode === "dark"
-                        ? "hsl(0, 0%, 0%)"
-                        : "#98c9a3",
                     py: 8,
                     minHeight: "100vh",
-                })}
+                    background: theme => theme.palette.mode === 'dark' 
+                        ? 'radial-gradient(ellipse 50% 30% at 50% -8%, #98c9a3, #000000)'
+                        : 'radial-gradient(ellipse 100% 60% at 50% -12%, #0a0908, #98c9a3)',
+                    backgroundAttachment: 'fixed',
+                    backgroundRepeat: 'no-repeat',
+                }}
             >
                 <Container maxWidth="lg" sx={{ py: 15 }}>
                     <StyledContentBox>
@@ -71,7 +69,7 @@ export default function FavoritesPage(props: { disableCustomTheme?: boolean }) {
                             component="h1"
                             textAlign="center"
                             gutterBottom
-                            sx={{ mb: 4, color: '#FFFFFF' }}
+                            sx={{ mb: 4, color: 'text.primary' }} 
                         >
                             Produtos Salvos
                         </Typography>
@@ -87,7 +85,7 @@ export default function FavoritesPage(props: { disableCustomTheme?: boolean }) {
                             >
                                 <Typography
                                     variant="h6"
-                                    color="#FFFFFF"
+                                    color="text.secondary" 
                                     gutterBottom
                                     textAlign="center"
                                 >
@@ -119,6 +117,6 @@ export default function FavoritesPage(props: { disableCustomTheme?: boolean }) {
             </Box>
 
             <Footer />
-        </AppTheme>
+        </>
     );
 }
