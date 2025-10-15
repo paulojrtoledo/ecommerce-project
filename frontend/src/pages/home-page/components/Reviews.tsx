@@ -89,7 +89,7 @@ export default function Reviews(props: ReviewsProps) {
           >
             Avaliações
           </Typography>
-          <Typography variant="body1" sx={{ color: "#081c15" }}>
+          <Typography variant="body1" sx={{ color: "#FFFFFF" }}>
             Veja por que nossos clientes amam nossos produtos de tecnologia. Descubra como nos destacamos em desempenho, inovação e confiabilidade. Junte-se a nós e aproveite qualidade, tecnologia de ponta e suporte dedicado.
           </Typography>
         </Box>

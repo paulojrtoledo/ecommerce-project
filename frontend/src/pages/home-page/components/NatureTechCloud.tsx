@@ -96,7 +96,7 @@ export default function NatureTechCloud(props: NatureTechCloudProps) {
           >
             Nature Tech Cloud
           </Typography>
-          <Typography variant="body1" sx={{ color: "#081c15" }}>
+          <Typography variant="body1" sx={{ color: "#FFFFFF" }}>
             Armazene, compartilhe e proteja seus arquivos com espaço de nuvem, suporte dedicado e benefícios exclusivos para seus dispositivos Nature Tech.
           </Typography>
         </Box>
