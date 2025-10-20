@@ -49,6 +49,10 @@ const QuantityButton = styled(Button)(({ theme }) => ({
   },
 }));
 
+const formatPrice = (price: number): string => {
+  return price.toFixed(2).replace('.', ',');
+};
+
 export default function CartPage(props: { disableCustomTheme?: boolean }) {
   const { items, updateQuantity, removeItem } = useCart();
   const { mode } = useThemeContext(); 
@@ -121,109 +125,233 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
                 <Grid item xs={12} md={8}>
                   {items.map((item) => (
                     <Card key={item.id} sx={{ mb: 2, overflow: 'visible' }}> 
-                      <CardContent sx={{ padding: '16px', '&:last-child': { paddingBottom: '16px' } }}> 
-                        <Grid container spacing={2} alignItems="center">
-                    
-                          <Grid item xs={3} sm={2}>
-                            <Box
-                              component="img"
-                              src={item.image}
-                              alt={item.name}
-                              sx={{
-                                width: '100%',
-                                height: 80,
-                                objectFit: 'contain',
-                              }}
-                            />
-                          </Grid>
-
-                          <Grid item xs={9} sm={4}> 
-                            <Typography variant="h6" component="h3" color="text.primary" noWrap> 
-                              {item.name}
-                            </Typography>
-                            <Typography variant="h6" color="primary">
-                              R$ {item.price.toFixed(2)}
-                            </Typography>
-                          </Grid>
-
-                          <Grid item xs={6} sm={3}> 
-                            <Stack direction="row" alignItems="center" spacing={1} justifyContent="center">
-                              <IconButton
-                                size="small"
-                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                disabled={item.quantity <= 1}
+                      <CardContent sx={{ 
+                        padding: { xs: '12px', sm: '16px' }, 
+                        '&:last-child': { paddingBottom: { xs: '12px', sm: '16px' } } 
+                      }}> 
+                        {/* Layout Mobile */}
+                        <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+                          <Grid container spacing={2} alignItems="center">
+      
+                            <Grid item xs={3}>
+                              <Box
+                                component="img"
+                                src={item.image}
+                                alt={item.name}
                                 sx={{
-                                  color: item.quantity <= 1 ? 'text.disabled' : 'text.primary',
-                                  border: '1px solid',
-                                  borderColor: 'divider',
-                                  borderRadius: 1,
-                                  width: 40,
-                                  height: 40,
-                                  flexShrink: 0,
+                                  width: '100%',
+                                  height: 60,
+                                  objectFit: 'contain',
                                 }}
-                              >
-                                <RemoveIcon />
-                              </IconButton>
-                              
-                              <QuantityButton>
-                                {item.quantity}
-                              </QuantityButton>
-                              
-                              <IconButton
-                                size="small"
-                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                sx={{
-                                  color: 'text.primary',
-                                  border: '1px solid',
-                                  borderColor: 'divider',
-                                  borderRadius: 1,
-                                  width: 40,
-                                  height: 40,
-                                  flexShrink: 0,
-                                }}
-                              >
-                                <AddIcon />
-                              </IconButton>
-                            </Stack>
-                          </Grid>
-
-                          <Grid item xs={6} sm={3}> 
-                            <Stack 
-                              direction="row" 
-                              spacing={1} 
-                              alignItems="center" 
-                              justifyContent="flex-end"
-                              sx={{ width: '100%' }}
-                            >
+                              />
+                            </Grid>
+                            <Grid item xs={9}>
                               <Typography 
                                 variant="h6" 
-                                color="text.primary"
+                                component="h3" 
+                                color="text.primary" 
                                 sx={{ 
-                                  whiteSpace: 'nowrap',
-                                  minWidth: '100px',
-                                  textAlign: 'right',
-                                  flexShrink: 0,
+                                  fontSize: '0.9rem',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  display: '-webkit-box',
+                                  WebkitLineClamp: 2,
+                                  WebkitBoxOrient: 'vertical',
                                 }}
                               > 
-                                R$ {(item.price * item.quantity).toFixed(2)}
+                                {item.name}
                               </Typography>
-                              <IconButton
-                                color="error"
-                                onClick={() => removeItem(item.id)}
-                                sx={{
-                                  border: '1px solid',
-                                  borderColor: 'divider',
-                                  borderRadius: 1,
-                                  flexShrink: 0,
-                                  width: 40,
-                                  height: 40,
-                                }}
-                              >
-                                <DeleteIcon />
-                              </IconButton>
-                            </Stack>
+                              <Typography variant="h6" color="primary" sx={{ fontSize: '0.9rem' }}>
+                                R$ {formatPrice(item.price)}
+                              </Typography>
+                            </Grid>
+
+                            <Grid item xs={12} sx={{ mt: 1 }}>
+                              <Box sx={{ 
+                                display: 'flex', 
+                                justifyContent: 'space-between', 
+                                alignItems: 'center',
+                                gap: 1
+                              }}>
+                                <Stack direction="row" alignItems="center" spacing={1}>
+                                  <IconButton
+                                    size="small"
+                                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                    disabled={item.quantity <= 1}
+                                    sx={{
+                                      color: item.quantity <= 1 ? 'text.disabled' : 'text.primary',
+                                      border: '1px solid',
+                                      borderColor: 'divider',
+                                      borderRadius: 1,
+                                      width: 32,
+                                      height: 32,
+                                    }}
+                                  >
+                                    <RemoveIcon fontSize="small" />
+                                  </IconButton>
+                                  
+                                  <QuantityButton sx={{ minWidth: '40px', height: '32px', fontSize: '14px' }}>
+                                    {item.quantity}
+                                  </QuantityButton>
+                                  
+                                  <IconButton
+                                    size="small"
+                                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                    sx={{
+                                      color: 'text.primary',
+                                      border: '1px solid',
+                                      borderColor: 'divider',
+                                      borderRadius: 1,
+                                      width: 32,
+                                      height: 32,
+                                    }}
+                                  >
+                                    <AddIcon fontSize="small" />
+                                  </IconButton>
+                                </Stack>
+
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                  <Typography 
+                                    variant="h6" 
+                                    color="text.primary"
+                                    sx={{ 
+                                      fontSize: '0.9rem',
+                                      whiteSpace: 'nowrap',
+                                    }}
+                                  > 
+                                    R$ {formatPrice(item.price * item.quantity)}
+                                  </Typography>
+                                  <IconButton
+                                    color="error"
+                                    size="small"
+                                    onClick={() => removeItem(item.id)}
+                                    sx={{
+                                      border: '1px solid',
+                                      borderColor: 'divider',
+                                      borderRadius: 1,
+                                      width: 32,
+                                      height: 32,
+                                    }}
+                                  >
+                                    <DeleteIcon fontSize="small" />
+                                  </IconButton>
+                                </Box>
+                              </Box>
+                            </Grid>
                           </Grid>
-                        </Grid>
+                        </Box>
+
+                        {/* Layout Desktop */}
+                        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                          <Grid container spacing={2} alignItems="center">
+                            <Grid item xs={3} sm={2}>
+                              <Box
+                                component="img"
+                                src={item.image}
+                                alt={item.name}
+                                sx={{
+                                  width: '100%',
+                                  height: 80,
+                                  objectFit: 'contain',
+                                }}
+                              />
+                            </Grid>
+
+                            <Grid item xs={9} sm={4}>
+                              <Typography 
+                                variant="h6" 
+                                component="h3" 
+                                color="text.primary" 
+                                sx={{ 
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  display: '-webkit-box',
+                                  WebkitLineClamp: 2,
+                                  WebkitBoxOrient: 'vertical',
+                                }}
+                              > 
+                                {item.name}
+                              </Typography>
+                              <Typography variant="h6" color="primary">
+                                R$ {formatPrice(item.price)}
+                              </Typography>
+                            </Grid>
+
+                            <Grid item xs={6} sm={3}>
+                              <Stack direction="row" alignItems="center" spacing={1} justifyContent="center">
+                                <IconButton
+                                  size="small"
+                                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                  disabled={item.quantity <= 1}
+                                  sx={{
+                                    color: item.quantity <= 1 ? 'text.disabled' : 'text.primary',
+                                    border: '1px solid',
+                                    borderColor: 'divider',
+                                    borderRadius: 1,
+                                    width: 40,
+                                    height: 40,
+                                  }}
+                                >
+                                  <RemoveIcon />
+                                </IconButton>
+                                
+                                <QuantityButton>
+                                  {item.quantity}
+                                </QuantityButton>
+                                
+                                <IconButton
+                                  size="small"
+                                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                  sx={{
+                                    color: 'text.primary',
+                                    border: '1px solid',
+                                    borderColor: 'divider',
+                                    borderRadius: 1,
+                                    width: 40,
+                                    height: 40,
+                                  }}
+                                >
+                                  <AddIcon />
+                                </IconButton>
+                              </Stack>
+                            </Grid>
+
+                            <Grid item xs={6} sm={3}>
+                              <Stack 
+                                direction="row" 
+                                spacing={1} 
+                                alignItems="center" 
+                                justifyContent="flex-end"
+                                sx={{ width: '100%' }}
+                              >
+                                <Typography 
+                                  variant="h6" 
+                                  color="text.primary"
+                                  sx={{ 
+                                    whiteSpace: 'nowrap',
+                                    minWidth: '100px',
+                                    textAlign: 'right',
+                                  }}
+                                > 
+                                  R$ {formatPrice(item.price * item.quantity)}
+                                </Typography>
+                                <IconButton
+                                  color="error"
+                                  onClick={() => removeItem(item.id)}
+                                  sx={{
+                                    border: '1px solid',
+                                    borderColor: 'divider',
+                                    borderRadius: 1,
+                                    width: 40,
+                                    height: 40,
+                                  }}
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Stack>
+                            </Grid>
+                          </Grid>
+                        </Box>
                       </CardContent>
                     </Card>
                   ))}
@@ -239,13 +367,13 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
                       <Stack spacing={2}>
                         <Box display="flex" justifyContent="space-between">
                           <Typography color="text.primary">Subtotal</Typography> 
-                          <Typography color="text.primary">R$ {subtotal.toFixed(2)}</Typography> 
+                          <Typography color="text.primary">R$ {formatPrice(subtotal)}</Typography> 
                         </Box>
 
                         <Box display="flex" justifyContent="space-between">
                           <Typography color="text.primary">Frete</Typography> 
                           <Typography color="text.primary"> 
-                            {shipping === 0 ? 'Grátis' : `R$ ${shipping.toFixed(2)}`}
+                            {shipping === 0 ? 'Grátis' : `R$ ${formatPrice(shipping)}`}
                           </Typography>
                         </Box>
 
@@ -253,7 +381,7 @@ export default function CartPage(props: { disableCustomTheme?: boolean }) {
 
                         <Box display="flex" justifyContent="space-between">
                           <Typography variant="h6" color="text.primary">Total</Typography> 
-                          <Typography variant="h6" color="text.primary">R$ {total.toFixed(2)}</Typography> 
+                          <Typography variant="h6" color="text.primary">R$ {formatPrice(total)}</Typography> 
                         </Box>
 
                         <Button

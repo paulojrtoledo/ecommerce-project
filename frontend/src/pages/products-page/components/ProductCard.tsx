@@ -5,6 +5,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { useFavorites } from '../../../contexts/FavoritesContext';
+import { useCart } from '../../../contexts/CartContext'; // Importe o useCart
 
 interface Product {
     id: number;
@@ -25,11 +26,15 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
     const [isHovered, setIsHovered] = useState(false);
     const [noCarrinho, setNoCarrinho] = useState(false);
     const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+    const { items } = useCart(); // Use o hook do carrinho
     const [isFavorito, setIsFavorito] = useState(false);
 
     useEffect(() => {
         setIsFavorito(isFavorite(product.id));
     }, [product.id, isFavorite]);
+
+    // Verifica se o produto está no carrinho
+    const produtoNoCarrinho = items.some(item => item.id === product.id);
 
     const handleAddToCart = () => {
         onAddToCart(product);
@@ -42,7 +47,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
     const calcularParcela = (preco: number) => {
         const taxaMensal = 1.025;
         const totalComJuros = preco * Math.pow(taxaMensal, 8);
-        return (totalComJuros / 8);
+        return totalComJuros / 8;
     };
 
     const handleFavorito = () => {
@@ -58,14 +63,15 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
     const handleCarrinhoRapido = () => {
         setNoCarrinho(true);
         onAddToCart(product);
-        setTimeout(() => setNoCarrinho(false), 2000);
+        // Remove o setTimeout para que não reset automaticamente
+        // O estado agora é controlado pela verificação real do carrinho
     };
 
     return (
         <Card
             component="div"
             sx={{
-                backgroundColor: "#f7fafc",
+                backgroundColor: "#f7fafc", 
                 height: '100%',
                 padding: '16px',
                 transition: 'transform 0.2s ease-in-out',
@@ -102,46 +108,52 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
                         sx={{
                             color: isFavorito ? '#c43420' : 'grey.400',
                             backgroundColor: 'rgba(255,255,255,0.8)',
-                            '&:hover': {
+                            '&:hover': { 
                                 backgroundColor: isFavorito ? 'grey.300' : '#c43420',
                                 color: isFavorito ? 'grey.400' : 'white'
                             }
                         }}
                     >
-                        {isFavorito ? <FavoriteIcon fontSize="small" /> : <FavoriteBorderIcon fontSize='small' />}
+                        {isFavorito ? <FavoriteIcon fontSize="small"/> : <FavoriteBorderIcon fontSize='small'/>}
                     </IconButton>
 
                     <IconButton
                         size='small'
                         onClick={handleCarrinhoRapido}
                         sx={{
-                            color: noCarrinho ? 'success.main' : 'grey.400',
+                            color: (noCarrinho || produtoNoCarrinho) ? 'success.main' : 'grey.400',
                             backgroundColor: 'rgba(255,255,255,0.8)',
-                            '&:hover': { backgroundColor: '#081c15' }
+                            '&:hover': { 
+                                backgroundColor: (noCarrinho || produtoNoCarrinho) ? 'grey.300' : '#081c15',
+                                color: (noCarrinho || produtoNoCarrinho) ? 'success.main' : 'white'
+                            }
                         }}
                     >
-                        {noCarrinho ? <ShoppingCartCheckoutIcon fontSize='small' /> : <AddShoppingCartIcon fontSize='small' />}
+                        {(noCarrinho || produtoNoCarrinho) ? 
+                            <ShoppingCartCheckoutIcon fontSize='small' /> : 
+                            <AddShoppingCartIcon fontSize='small' />
+                        }
                     </IconButton>
                 </Box>
             </Box>
 
             <CardContent>
-                <Typography variant="h6" gutterBottom color={"#081c15"}>
+                <Typography variant="h6" gutterBottom color={"#081c15"}> 
                     {product.name}
                 </Typography>
 
-                <Typography variant="body2" color="#081c15" sx={{ mb: 2 }}>
+                <Typography variant="body2" color="#081c15" sx={{ mb: 2 }}> 
                     {product.description}
                 </Typography>
 
-                <Typography variant="h6" color="#081c15" sx={{ mb: 1 }}>
+                <Typography variant="h6" color="#081c15" sx={{ mb: 1 }}> 
                     R$ {formatPrice(product.price)}
                 </Typography>
 
-                <Typography variant="caption" color="#081c15" display="block">
+                <Typography variant="caption" color="#081c15" display="block"> 
                     À vista no PIX
                 </Typography>
-                <Typography variant="caption" color="#081c15" display="block">
+                <Typography variant="caption" color="#081c15" display="block"> 
                     ou em até 8x de: R$ {formatPrice(calcularParcela(product.price))}
                 </Typography>
             </CardContent>
