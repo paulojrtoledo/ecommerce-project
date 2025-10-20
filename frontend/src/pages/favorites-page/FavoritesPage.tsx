@@ -1,7 +1,6 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useThemeContext } from '../../contexts/ThemeContext'; 
-import AppAppBar from '../home-page/components/AppAppBar';
 import Footer from '../home-page/components/Footer';
 import {
     Box,

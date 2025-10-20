@@ -54,7 +54,7 @@ export default function HeaderExternal() {
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
             <Logo />
             <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 28, gap: 2 }}>
-              
+
               <Button
                 variant="text"
                 color="info"
@@ -200,6 +200,25 @@ export default function HeaderExternal() {
                   Produtos
                 </MenuItem>
                 <Divider sx={{ my: 3 }} />
+
+                <IconButton
+                  color="inherit"
+                  size="small"
+                  component="a"
+                  href="/favoritos"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: 'white',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    display: 'flex',
+                    alignItems: "center",
+                    justifyContent: 'center'
+                  }}
+                >
+                  <FavoriteIcon />
+                </IconButton>
 
                 <MenuItem
                   component="a"

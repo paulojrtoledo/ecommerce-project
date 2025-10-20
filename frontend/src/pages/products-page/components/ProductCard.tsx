@@ -35,10 +35,14 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
         onAddToCart(product);
     };
 
+    const formatPrice = (price: number): string => {
+        return price.toFixed(2).replace('.', ',');
+    };
+
     const calcularParcela = (preco: number) => {
         const taxaMensal = 1.025;
         const totalComJuros = preco * Math.pow(taxaMensal, 8);
-        return (totalComJuros / 8).toFixed(2);
+        return (totalComJuros / 8);
     };
 
     const handleFavorito = () => {
@@ -61,7 +65,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
         <Card
             component="div"
             sx={{
-                backgroundColor: "#f7fafc", 
+                backgroundColor: "#f7fafc",
                 height: '100%',
                 padding: '16px',
                 transition: 'transform 0.2s ease-in-out',
@@ -98,13 +102,13 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
                         sx={{
                             color: isFavorito ? '#c43420' : 'grey.400',
                             backgroundColor: 'rgba(255,255,255,0.8)',
-                            '&:hover': { 
+                            '&:hover': {
                                 backgroundColor: isFavorito ? 'grey.300' : '#c43420',
                                 color: isFavorito ? 'grey.400' : 'white'
                             }
                         }}
                     >
-                        {isFavorito ? <FavoriteIcon fontSize="small"/> : <FavoriteBorderIcon fontSize='small'/>}
+                        {isFavorito ? <FavoriteIcon fontSize="small" /> : <FavoriteBorderIcon fontSize='small' />}
                     </IconButton>
 
                     <IconButton
@@ -122,23 +126,23 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
             </Box>
 
             <CardContent>
-                <Typography variant="h6" gutterBottom color={"#081c15"}> 
+                <Typography variant="h6" gutterBottom color={"#081c15"}>
                     {product.name}
                 </Typography>
 
-                <Typography variant="body2" color="#081c15" sx={{ mb: 2 }}> 
+                <Typography variant="body2" color="#081c15" sx={{ mb: 2 }}>
                     {product.description}
                 </Typography>
 
-                <Typography variant="h6" color="#081c15" sx={{ mb: 1 }}> 
-                    R$ {product.price.toFixed(2)}
+                <Typography variant="h6" color="#081c15" sx={{ mb: 1 }}>
+                    R$ {formatPrice(product.price)}
                 </Typography>
 
-                <Typography variant="caption" color="#081c15" display="block"> 
+                <Typography variant="caption" color="#081c15" display="block">
                     À vista no PIX
                 </Typography>
-                <Typography variant="caption" color="#081c15" display="block"> 
-                    ou em até 8x de: R$ {calcularParcela(product.price)}
+                <Typography variant="caption" color="#081c15" display="block">
+                    ou em até 8x de: R$ {formatPrice(calcularParcela(product.price))}
                 </Typography>
             </CardContent>
 

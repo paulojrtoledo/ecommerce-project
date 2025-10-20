@@ -54,7 +54,7 @@ export default function HeaderProducts() {
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
             <LogoProducts />
             <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 22, gap: 8, alignItems: 'center' }}>
-            
+
               <Button
                 variant="text"
                 color="info"
@@ -208,6 +208,26 @@ export default function HeaderProducts() {
                   Dispositivos Inteligentes
                 </MenuItem>
                 <Divider sx={{ my: 3 }} />
+
+                <IconButton
+                  color="inherit"
+                  size="small"
+                  component="a"
+                  href="/favoritos"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: 'white',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    display: 'flex',
+                    alignItems: "center",
+                    justifyContent: 'center'
+                  }}
+                >
+                  <FavoriteIcon />
+                </IconButton>
+
                 <MenuItem
                   component="a"
                   href="/login"
