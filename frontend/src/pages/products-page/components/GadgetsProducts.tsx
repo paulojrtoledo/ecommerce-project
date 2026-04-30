@@ -4,59 +4,19 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useCart } from '../../../contexts/CartContext';
-import { useThemeContext } from '../../../contexts/ThemeContext'; 
 import ProductCard from './ProductCard';
+import { getProducts } from '../../../services/productService';
 
-const products = [
-  {
-    id: 10,
-    name: 'Headset Wild Nature Pro',
-    price: 1250.00,
-    image: '/headset.webp',
-    description: 'Headset gamer com som surround 7.1 e cancelamento de ruído',
-    category: 'Áudio'
-  },
-  {
-    id: 11,
-    name: 'Teclado Silent Tech',
-    price: 900.00,
-    image: '/teclado.webp',
-    description: 'Teclado mecânico com switches silenciosos e iluminação RGB',
-    category: 'Periféricos'
-  },
-  {
-    id: 12,
-    name: 'Mouse Precision v1',
-    price: 200.00,
-    image: '/mouse.webp',
-    description: 'Mouse óptico com sensor de alta precisão e design ergonômico',
-    category: 'Periféricos'
-  },
-  {
-    id: 13,
-    name: 'Interface de Áudio Tech Pro',
-    price: 435.00,
-    image: '/interface.webp',
-    description: 'Interface de áudio profissional para gravação e produção musical',
-    category: 'Áudio'
-  },
-  {
-    id: 14,
-    name: 'Drum Pad Function Tech',
-    price: 900.00,
-    image: '/drum-pad.webp',
-    description: 'Drum pad MIDI com pads sensíveis à pressão para produção musical',
-    category: 'Áudio'
-  },
-  {
-    id: 15,
-    name: 'Docking Station NTA',
-    price: 280.00,
-    image: '/docking-station.webp',
-    description: 'Docking station com múltiplas portas para laptops e dispositivos',
-    category: 'Acessórios'
-  },
-];
+interface GadgetsProduct {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  description: string;
+  category: string;
+}
+
+const GADGET_CATEGORIES = ['Áudio', 'Periféricos', 'Acessórios'];
 
 interface GadgetsProductsProps {
   id?: string;
@@ -64,11 +24,38 @@ interface GadgetsProductsProps {
 
 export default function GadgetsProducts(props: GadgetsProductsProps) {
   const { addItem } = useCart();
-  const { mode } = useThemeContext(); 
+  const [products, setProducts] = React.useState<GadgetsProduct[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
 
-  console.log('🎮 GadgetsProducts - Mode:', mode); 
+  React.useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const apiProducts = await getProducts();
+        const filteredAndMapped = apiProducts
+          .filter((product) => GADGET_CATEGORIES.includes(product.category))
+          .map((product) => ({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            category: product.category,
+            image: product.imageUrl || '/headset.webp',
+            description: product.description || 'Produto',
+          }));
 
-  const handleAddToCart = (product: any) => {
+        setProducts(filteredAndMapped);
+      } catch (err) {
+        console.error('Erro ao buscar produtos no backend:', err);
+        setError('Nao foi possivel carregar os produtos.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const handleAddToCart = (product: GadgetsProduct) => {
     console.log('Adicionando produto:', product);
     addItem({
       id: product.id,
@@ -121,16 +108,30 @@ export default function GadgetsProducts(props: GadgetsProductsProps) {
           Produtos testados e aprovados com garantia Nature Tech.
         </Typography>
 
-        <Grid container spacing={4}>
-          {products.map((product) => (
-            <Grid item xs={12} sm={6} md={4} key={product.id}>
-              <ProductCard
-                product={product}
-                onAddToCart={handleAddToCart}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        {loading && (
+          <Typography align="center" sx={{ color: 'text.secondary', mb: 4 }}>
+            Carregando produtos...
+          </Typography>
+        )}
+
+        {error && (
+          <Typography align="center" sx={{ color: 'text.secondary', mb: 4 }}>
+            {error}
+          </Typography>
+        )}
+
+        {!loading && !error && (
+          <Grid container spacing={4}>
+            {products.map((product) => (
+              <Grid item xs={12} sm={6} md={4} key={product.id}>
+                <ProductCard
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Container>
     </Box>
   );

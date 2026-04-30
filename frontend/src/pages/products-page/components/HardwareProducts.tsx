@@ -4,59 +4,17 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useCart } from '../../../contexts/CartContext';
-import { useThemeContext } from '../../../contexts/ThemeContext'; 
 import ProductCard from './ProductCard';
+import { getProducts } from '../../../services/productService';
 
-const products = [
-  {
-    id: 14228313,
-    name: 'Placa de Vídeo NT 4060',
-    price: 3500,
-    image: '/placadevideo-nt.webp',
-    description: 'Placa de vídeo de alta performance para gamers e criadores de conteúdo',
-    category: 'Hardware'
-  },
-  {
-    id: 13228314,
-    name: 'Processador Nature Tech v3',
-    price: 2400,
-    image: '/processador.webp',
-    description: 'Processador de última geração com 8 núcleos para multitarefa intensiva',
-    category: 'Hardware'
-  },
-  {
-    id: 13228315,
-    name: 'SSD Nature Tech 2TB',
-    price: 720,
-    image: '/ssd.webp',
-    description: 'SSD NVMe ultra rápido para carregamento instantâneo de aplicações',
-    category: 'Armazenamento'
-  },
-  {
-    id: 13228316,
-    name: 'Mother Nature Placa Mãe v2',
-    price: 3000,
-    image: '/placamae.webp',
-    description: 'Placa mãe ATX com suporte às mais recentes tecnologias e expansibilidade',
-    category: 'Hardware'
-  },
-  {
-    id: 13228317,
-    name: 'Monitor Nature Sounds',
-    price: 800,
-    image: '/monitor.webp',
-    description: 'Monitor 24" Full HD com cores vibrantes e taxa de atualização de 144Hz',
-    category: 'Periféricos'
-  },
-  {
-    id: 13228318,
-    name: 'Gabinete Forest Black',
-    price: 540,
-    image: '/gabinete.webp',
-    description: 'Gabinete mid-tower elegante com excelente fluxo de ar e iluminação RGB',
-    category: 'Acessórios'
-  },
-];
+interface HardwareProduct {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  description: string;
+  category: string;
+}
 
 interface HardwareProductsProps {
   id?: string;
@@ -64,9 +22,35 @@ interface HardwareProductsProps {
 
 export default function HardwareProducts(props: HardwareProductsProps) {
   const { addItem } = useCart();
-  const { mode } = useThemeContext(); 
+  const [products, setProducts] = React.useState<HardwareProduct[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
 
-  const handleAddToCart = (product: any) => {
+  React.useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const apiProducts = await getProducts();
+        const mappedProducts: HardwareProduct[] = apiProducts.map((product) => ({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          category: product.category,
+          image: '/placadevideo-nt.webp',
+          description: 'Produto',
+        }));
+        setProducts(mappedProducts);
+      } catch (err) {
+        console.error('Erro ao buscar produtos no backend:', err);
+        setError('Nao foi possivel carregar os produtos.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const handleAddToCart = (product: HardwareProduct) => {
     console.log('Adicionando produto:', product);
     addItem({
       id: product.id,
@@ -117,16 +101,30 @@ export default function HardwareProducts(props: HardwareProductsProps) {
           Produtos testados e aprovados com garantia Nature Tech.
         </Typography>
 
-        <Grid container spacing={4}>
-          {products.map((product) => (
-            <Grid item xs={12} sm={6} md={4} key={product.id}>
-              <ProductCard
-                product={product}
-                onAddToCart={handleAddToCart}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        {loading && (
+          <Typography align="center" sx={{ color: '#FFFFFF', mb: 4 }}>
+            Carregando produtos...
+          </Typography>
+        )}
+
+        {error && (
+          <Typography align="center" sx={{ color: '#FFFFFF', mb: 4 }}>
+            {error}
+          </Typography>
+        )}
+
+        {!loading && !error && (
+          <Grid container spacing={4}>
+            {products.map((product) => (
+              <Grid item xs={12} sm={6} md={4} key={product.id}>
+                <ProductCard
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Container>
     </Box>
   );
