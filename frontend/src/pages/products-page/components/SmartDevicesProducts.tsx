@@ -39,7 +39,7 @@ export default function SmartDevicesProducts(props: SmartDevicesProps) {
             name: product.name,
             price: product.price,
             category: product.category,
-            image: product.imageUrl || '/hub.jpeg',
+            image: product.imageUrl && product.imageUrl.trim() !== '' ? product.imageUrl : '/hub.jpeg',
             description: product.description || 'Produto',
           }));
 

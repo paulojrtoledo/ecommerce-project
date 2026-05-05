@@ -35,8 +35,8 @@ export default function HardwareProducts(props: HardwareProductsProps) {
           name: product.name,
           price: product.price,
           category: product.category,
-          image: '/placadevideo-nt.webp',
-          description: 'Produto',
+          image: product.imageUrl && product.imageUrl.trim() !== '' ? product.imageUrl : '/placadevideo-nt.webp',
+          description: product.description || 'Produto',
         }));
         setProducts(mappedProducts);
       } catch (err) {

@@ -39,7 +39,7 @@ export default function GadgetsProducts(props: GadgetsProductsProps) {
             name: product.name,
             price: product.price,
             category: product.category,
-            image: product.imageUrl || '/headset.webp',
+            image: product.imageUrl && product.imageUrl.trim() !== '' ? product.imageUrl : '/headset.webp',
             description: product.description || 'Produto',
           }));
 
