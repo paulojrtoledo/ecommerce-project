@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Configuration
 @RequiredArgsConstructor
@@ -43,20 +44,48 @@ public class ProductDataInitializer {
                                  BigDecimal price,
                                  Integer stock,
                                  String imageUrl) {
-        if (productRepository.findByNameIgnoreCase(name).isPresent()) {
+        Category category = categoryService.findOrCreateByName(categoryName);
+        Optional<Product> existingProduct = productRepository.findByNameIgnoreCase(name);
+
+        if (existingProduct.isPresent()) {
+            Product product = existingProduct.get();
+            boolean changed = false;
+
+            if (!description.equals(product.getDescription())) {
+                product.setDescription(description);
+                changed = true;
+            }
+            if (product.getCategory() == null || !category.getId().equals(product.getCategory().getId())) {
+                product.setCategory(category);
+                changed = true;
+            }
+            if (product.getPrice() == null || product.getPrice().compareTo(price) != 0) {
+                product.setPrice(price);
+                changed = true;
+            }
+            if (product.getStockQuantity() == null || !stock.equals(product.getStockQuantity())) {
+                product.setStockQuantity(stock);
+                changed = true;
+            }
+            if (product.getImageUrl() == null || !product.getImageUrl().equals(imageUrl)) {
+                product.setImageUrl(imageUrl);
+                changed = true;
+            }
+
+            if (changed) {
+                productRepository.save(product);
+            }
             return;
         }
 
-        Category category = categoryService.findOrCreateByName(categoryName);
+        Product newProduct = new Product();
+        newProduct.setName(name);
+        newProduct.setDescription(description);
+        newProduct.setCategory(category);
+        newProduct.setPrice(price);
+        newProduct.setStockQuantity(stock);
+        newProduct.setImageUrl(imageUrl);
 
-        Product product = new Product();
-        product.setName(name);
-        product.setDescription(description);
-        product.setCategory(category);
-        product.setPrice(price);
-        product.setStockQuantity(stock);
-        product.setImageUrl(imageUrl);
-
-        productRepository.save(product);
+        productRepository.save(newProduct);
     }
 }
