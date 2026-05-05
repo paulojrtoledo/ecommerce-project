@@ -1,153 +1,140 @@
-# 🛒 E-Commerce Project
+🛒 E-Commerce Project
 
-Full-stack e-commerce platform built with React, TypeScript and Node.js — featuring a complete product catalog, shopping cart, favorites list and dark mode. Live on Vercel.
+Full-stack e-commerce platform built with React (TypeScript) and Java (Spring Boot) — featuring a dynamic product catalog powered by a real backend API and PostgreSQL database.
 
-👉 **[Live Demo](https://ecommerce-project-abt7.vercel.app/)**
+👉 Live Demo
 
----
+🚧 Status
 
-## 🚧 Status
+Active development. Core product flow is functional with full frontend ↔ backend integration. Authentication and checkout in progress.
 
-> Active development. Core features are functional. Authentication integration in progress.
+🏗️ Architecture
+Frontend (React + TypeScript)
+        ↓
+Backend (Spring Boot - Java)
+        ↓
+PostgreSQL (Docker)
+Frontend consumes REST API (/products)
+Backend handles business logic and persistence
+Database runs in Docker container
+💻 Technologies
+Frontend
+React + TypeScript
+Material-UI
+React Router
+Axios
+Context API (cart, favorites, theme)
+Backend (Current)
+Java 17+ / Spring Boot
+Spring Web
+Spring Data JPA (Hibernate)
+PostgreSQL
+Maven
+Bean Validation
+Docker (database)
+Backend (Legacy)
+Node.js + Express + TypeScript
+Firebase Firestore
 
----
+⚠️ The Node.js backend is kept temporarily as legacy. The current backend is the Spring Boot implementation in /backend-java.
 
-## 🏗️ Architecture
+✅ Implemented Features
+Frontend Pages
+Route	Page	Description
+/	HomePage	Landing page with sections and highlights
+/produtos	ProductsPage	Dynamic product catalog from API
+/meu-carrinho	CartPage	Shopping cart with calculations
+/favoritos	FavoritesPage	Favorites list
+/login	LoginPage	UI ready (backend integration pending)
+Product Catalog (Dynamic)
+Products are fetched from backend API
+Categories:
+Hardware
+Gadgets & Peripherals
+Smart Devices
+Data is no longer hardcoded
+Backend REST API (/products)
+Method	Route	Function
+GET	/products	List all products
+GET	/products/:id	Get product by ID
+POST	/products	Create product
+PUT	/products/:id	Update product
+DELETE	/products/:id	Delete product
+Product Model
+{
+  "id": 1,
+  "name": "RTX 4060",
+  "category": "Hardware",
+  "price": 2999,
+  "stock": 10,
+  "description": "High performance GPU",
+  "imageUrl": "/placadevideo-nt.webp"
+}
+Database
+PostgreSQL running via Docker
+Data persistence using JPA/Hibernate
+Seed script initializes product catalog (idempotent)
+Shopping Cart
+Add / remove items
+Quantity adjustment
+Shipping calculation
+Persisted in localStorage
+Favorites
+Add / remove items
+Persisted in localStorage
+Theme
+Light / Dark mode
+Persisted in localStorage
+📋 Pending
+ Product creation via frontend (POST integration)
+ Authentication (JWT)
+ Checkout flow
+ Admin panel
+ API validation improvements
+ Frontend state optimization (avoid duplicated API calls)
+🚀 Running Locally
+Prerequisites
+Node.js
+Java (JDK 17+)
+Docker
+Backend (Spring Boot)
+cd backend-java
+docker compose up -d
 
-```
-Frontend (React + TypeScript) → Backend (Express + TypeScript) → Firebase Firestore
-         Vercel Deploy                    REST API /products
-```
+Run backend (IntelliJ or terminal):
 
----
+.\mvnw.cmd spring-boot:run
 
-## 💻 Technologies
+API available at:
 
-### Frontend
-- React 17 + TypeScript
-- Material-UI 5
-- React Router 6
-- Axios
-- Swiper (carousel)
-- Context API (cart, favorites, theme)
-
-### Backend
-- Node.js + Express 5.1 + TypeScript
-- Firebase Firestore
-- Firebase Admin SDK
-- dotenv / CORS
-
----
-
-## ✅ Implemented Features
-
-### Frontend Pages
-
-| Route | Page | Description |
-|---|---|---|
-| `/` | HomePage | Full landing page with hero, reviews, highlights, pricing and FAQ |
-| `/produtos` | ProductsPage | Product catalog with 18 items across 3 categories |
-| `/meu-carrinho` | CartPage | Shopping cart with quantity control and shipping calculation |
-| `/favoritos` | FavoritesPage | Favorites list |
-| `/login` | LoginPage | Login UI — backend integration pending |
-
-### Shopping Cart
-- Add / remove items, quantity adjustment
-- Subtotal, shipping (free above R$1,000, otherwise R$50) and total calculation
-- Brazilian price formatting
-- Persisted in localStorage
-
-### Favorites
-- Add / remove favorites
-- Persisted in localStorage
-
-### Theme
-- Light / Dark mode toggle
-- Persisted in localStorage
-
-### Home Page Components
-- `AppBar` — navigation with cart, favorites and theme toggle
-- `Hero` — carousel with CTA
-- `Products` — product preview section
-- `Reviews` — 6 customer reviews
-- `Highlights` — 6 feature cards
-- `NatureTechCloud` — 3 pricing plans
-- `FAQ` — accordion
-- `Footer` — newsletter and links
-
-### Product Catalog (18 products)
-
-| Category | Products |
-|---|---|
-| Hardware (6) | GPU, CPU, SSD, Motherboard, Monitor, Case |
-| Gadgets & Peripherals (6) | Headset, Keyboard, Mouse, Audio Interface, Drum Pad, Docking Station |
-| Smart Devices (6) | IoT Hub, Smartwatch, Camera, Earbuds, Alarm, Sensor |
-
-### Backend REST API (`/products`)
-
-| Method | Route | Function |
-|---|---|---|
-| GET | `/products` | List all products |
-| GET | `/products/:id` | Get product by ID |
-| POST | `/products` | Create product |
-| PUT | `/products/:id` | Update product |
-| DELETE | `/products/:id` | Delete product |
-
-- Data model: `{ id, name, category, price, stock }`
-- Seed script (`seedFirestore.ts`) populates 9 products across 3 categories
-
----
-
-## 📋 Pending
-
-- [ ] Frontend integration with backend API (products currently hardcoded)
-- [ ] Functional authentication (JWT login/register)
-- [ ] Checkout flow
-- [ ] Admin panel
-- [ ] Automated tests
-
----
-
-## 🚀 Running Locally
-
-### Prerequisites
-- Node.js 18+
-- npm or yarn
-- Firebase project configured
-
-### Frontend
-
-```bash
+http://localhost:8080/products
+Frontend
 cd frontend
 npm install
 npm run dev
-```
 
-Access: `http://localhost:5173`
+Access:
 
-### Backend
+http://localhost:3000
+🌐 Deploy
 
-```bash
-cd backend
-npm install
-npm run dev
-```
+Frontend deployed on Vercel
+👉 https://ecommerce-project-abt7.vercel.app/
 
-API available at: `http://localhost:5000`
-
----
-
-## 🌐 Deploy
-
-Frontend deployed on **Vercel**: [https://ecommerce-project-abt7.vercel.app/](https://ecommerce-project-abt7.vercel.app/)
-
----
-
-## 📄 License
+📄 License
 
 MIT License
 
----
+👨‍💻 Author
 
-**Author:** Paulo Emilio de Toledo Jr
-[LinkedIn](https://www.linkedin.com/in/pauloemilio-tech) | [GitHub](https://github.com/paulojrtoledo)
+Paulo Emilio de Toledo Jr
+LinkedIn: www.linkedin.com/in/pauloemilio-tech 
+
+GitHub
+
+🧠 O que esse README comunica agora
+✔ projeto fullstack real
+✔ integração frontend ↔ backend
+✔ uso de banco relacional
+✔ arquitetura moderna
+✔ evolução de Node → Java (muito forte)
