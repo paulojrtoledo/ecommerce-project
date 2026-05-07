@@ -4,9 +4,6 @@ Modern full-stack e-commerce platform built with React + TypeScript and Java + S
 
 Nature Tech is currently under active development, evolving from a frontend-focused prototype into a complete scalable full-stack application with real backend integration, relational persistence and modern software architecture.
 
-👉 Live Demo
-Nature Tech Demo
-
 🚧 Development Status
 
 Active development in progress.
@@ -181,7 +178,7 @@ Deployment pipeline improvements
 
 Frontend deployed on Vercel:
 
-Nature Tech Live Demo
+https://nature-tech.vercel.app/
 
 👨‍💻 Author
 
