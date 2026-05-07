@@ -1,6 +1,6 @@
-package com.dssystem.ecommerce.repository;
+package com.naturetech.ecommerce.repository;
 
-import com.dssystem.ecommerce.entity.Category;
+import com.naturetech.ecommerce.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

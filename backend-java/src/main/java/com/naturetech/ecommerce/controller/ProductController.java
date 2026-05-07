@@ -1,9 +1,9 @@
-package com.dssystem.ecommerce.controller;
+package com.naturetech.ecommerce.controller;
 
-import com.dssystem.ecommerce.dto.ProductCreateDTO;
-import com.dssystem.ecommerce.dto.ProductResponseDTO;
-import com.dssystem.ecommerce.dto.ProductUpdateDTO;
-import com.dssystem.ecommerce.service.ProductService;
+import com.naturetech.ecommerce.dto.ProductCreateDTO;
+import com.naturetech.ecommerce.dto.ProductResponseDTO;
+import com.naturetech.ecommerce.dto.ProductUpdateDTO;
+import com.naturetech.ecommerce.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

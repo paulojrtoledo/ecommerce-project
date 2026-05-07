@@ -1,4 +1,4 @@
-package com.dssystem.ecommerce.dto;
+package com.naturetech.ecommerce.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.dssystem.ecommerce.repository;
+package com.naturetech.ecommerce.repository;
 
-import com.dssystem.ecommerce.entity.Product;
+import com.naturetech.ecommerce.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

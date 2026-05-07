@@ -1,4 +1,4 @@
-package com.dssystem.ecommerce.exception;
+package com.naturetech.ecommerce.exception;
 
 import lombok.Getter;
 

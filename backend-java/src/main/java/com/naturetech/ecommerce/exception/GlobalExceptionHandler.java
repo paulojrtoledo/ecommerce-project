@@ -1,4 +1,4 @@
-package com.dssystem.ecommerce.exception;
+package com.naturetech.ecommerce.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

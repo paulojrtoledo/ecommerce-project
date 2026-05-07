@@ -1,4 +1,4 @@
-package com.dssystem.ecommerce.dto;
+package com.naturetech.ecommerce.dto;
 
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;

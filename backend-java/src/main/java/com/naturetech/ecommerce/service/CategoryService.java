@@ -1,10 +1,10 @@
-package com.dssystem.ecommerce.service;
+package com.naturetech.ecommerce.service;
 
-import com.dssystem.ecommerce.dto.CategoryRequestDTO;
-import com.dssystem.ecommerce.dto.CategoryResponseDTO;
-import com.dssystem.ecommerce.entity.Category;
-import com.dssystem.ecommerce.exception.ResourceNotFoundException;
-import com.dssystem.ecommerce.repository.CategoryRepository;
+import com.naturetech.ecommerce.dto.CategoryRequestDTO;
+import com.naturetech.ecommerce.dto.CategoryResponseDTO;
+import com.naturetech.ecommerce.entity.Category;
+import com.naturetech.ecommerce.exception.ResourceNotFoundException;
+import com.naturetech.ecommerce.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

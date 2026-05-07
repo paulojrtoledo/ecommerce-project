@@ -1,9 +1,9 @@
-package com.dssystem.ecommerce.config;
+package com.naturetech.ecommerce.config;
 
-import com.dssystem.ecommerce.entity.Category;
-import com.dssystem.ecommerce.entity.Product;
-import com.dssystem.ecommerce.repository.ProductRepository;
-import com.dssystem.ecommerce.service.CategoryService;
+import com.naturetech.ecommerce.entity.Category;
+import com.naturetech.ecommerce.entity.Product;
+import com.naturetech.ecommerce.repository.ProductRepository;
+import com.naturetech.ecommerce.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

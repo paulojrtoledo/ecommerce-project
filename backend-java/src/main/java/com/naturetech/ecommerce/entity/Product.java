@@ -1,4 +1,4 @@
-package com.dssystem.ecommerce.entity;
+package com.naturetech.ecommerce.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

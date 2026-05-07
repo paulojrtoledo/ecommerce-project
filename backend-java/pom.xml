@@ -11,11 +11,11 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.dssystem</groupId>
+    <groupId>com.naturetech</groupId>
     <artifactId>ecommerce</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ecommerce</name>
-    <description>DS System E-Commerce Backend - Java/Spring Boot</description>
+    <name>nature-tech</name>
+    <description>Nature Tech E-Commerce Backend - Java/Spring Boot</description>
 
     <properties>
         <java.version>17</java.version>

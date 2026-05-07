@@ -1,6 +1,6 @@
-package com.dssystem.ecommerce.dto;
+package com.naturetech.ecommerce.dto;
 
-import com.dssystem.ecommerce.entity.Category;
+import com.naturetech.ecommerce.entity.Category;
 import lombok.Getter;
 import lombok.Setter;
 
