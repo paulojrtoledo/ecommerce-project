@@ -1,66 +1,100 @@
-🛒 E-Commerce Project
+🌿 Nature Tech
 
-Full-stack e-commerce platform built with React (TypeScript) and Java (Spring Boot) — featuring a dynamic product catalog powered by a real backend API and PostgreSQL database.
+Modern full-stack e-commerce platform built with React + TypeScript and Java + Spring Boot, featuring a dynamic product catalog powered by a real REST API and PostgreSQL database.
+
+Nature Tech is currently under active development, evolving from a frontend-focused prototype into a complete scalable full-stack application with real backend integration, relational persistence and modern software architecture.
 
 👉 Live Demo
+Nature Tech Demo
 
-🚧 Status
+🚧 Development Status
 
-Active development. Core product flow is functional with full frontend ↔ backend integration. Authentication and checkout in progress.
+Active development in progress.
+
+The project already includes:
+
+Real backend integration
+Dynamic product catalog
+PostgreSQL persistence
+Dockerized database infrastructure
+REST API architecture
+Frontend ↔ backend communication
+
+The application is continuously evolving with new features, architectural improvements and backend expansion.
 
 🏗️ Architecture
 Frontend (React + TypeScript)
         ↓
-Backend (Spring Boot - Java)
+REST API (Spring Boot)
         ↓
 PostgreSQL (Docker)
-Frontend consumes REST API (/products)
-Backend handles business logic and persistence
-Database runs in Docker container
+Frontend Responsibilities
+Product rendering
+Shopping cart logic
+Favorites system
+Theme management
+API consumption
+User interaction
+Backend Responsibilities
+REST API exposure
+Business logic
+Data validation
+Persistence layer
+Database communication
 💻 Technologies
 Frontend
-React + TypeScript
+React
+TypeScript
 Material-UI
 React Router
 Axios
-Context API (cart, favorites, theme)
-Backend (Current)
-Java 17+ / Spring Boot
+Context API
+Backend
+Java 17+
+Spring Boot
 Spring Web
-Spring Data JPA (Hibernate)
-PostgreSQL
-Maven
+Spring Data JPA
+Hibernate
 Bean Validation
-Docker (database)
-Backend (Legacy)
-Node.js + Express + TypeScript
-Firebase Firestore
-
-⚠️ The Node.js backend is kept temporarily as legacy. The current backend is the Spring Boot implementation in /backend-java.
-
-✅ Implemented Features
-Frontend Pages
-Route	Page	Description
-/	HomePage	Landing page with sections and highlights
-/produtos	ProductsPage	Dynamic product catalog from API
-/meu-carrinho	CartPage	Shopping cart with calculations
-/favoritos	FavoritesPage	Favorites list
-/login	LoginPage	UI ready (backend integration pending)
-Product Catalog (Dynamic)
-Products are fetched from backend API
-Categories:
+Maven
+Database & Infrastructure
+PostgreSQL
+Docker
+Docker Compose
+✨ Current Features
+Dynamic Product Catalog
+Products loaded directly from backend API
+Real database persistence
+Product categories
+Backend-driven rendering
+Image integration through API
+Product Categories
 Hardware
 Gadgets & Peripherals
 Smart Devices
-Data is no longer hardcoded
-Backend REST API (/products)
-Method	Route	Function
+Shopping Cart
+Add/remove products
+Quantity adjustment
+Shipping calculation
+Persistent cart using localStorage
+Favorites System
+Favorite/unfavorite products
+Persistent favorites using localStorage
+Theme System
+Dark mode / Light mode
+Persistent theme preferences
+🔌 REST API
+Products Endpoint
+Method	Endpoint	Description
 GET	/products	List all products
-GET	/products/:id	Get product by ID
+GET	/products/{id}	Get product by ID
 POST	/products	Create product
-PUT	/products/:id	Update product
-DELETE	/products/:id	Delete product
-Product Model
+PUT	/products/{id}	Update product
+DELETE	/products/{id}	Delete product
+🗃️ Database Structure
+
+Example product model:
+
 {
   "id": 1,
   "name": "RTX 4060",
@@ -70,38 +104,49 @@ Product Model
   "description": "High performance GPU",
   "imageUrl": "/placadevideo-nt.webp"
 }
-Database
-PostgreSQL running via Docker
-Data persistence using JPA/Hibernate
-Seed script initializes product catalog (idempotent)
-Shopping Cart
-Add / remove items
-Quantity adjustment
-Shipping calculation
-Persisted in localStorage
-Favorites
-Add / remove items
-Persisted in localStorage
-Theme
-Light / Dark mode
-Persisted in localStorage
-📋 Pending
- Product creation via frontend (POST integration)
- Authentication (JWT)
- Checkout flow
- Admin panel
- API validation improvements
- Frontend state optimization (avoid duplicated API calls)
-🚀 Running Locally
-Prerequisites
-Node.js
-Java (JDK 17+)
-Docker
-Backend (Spring Boot)
-cd backend-java
-docker compose up -d
+⚙️ Backend Architecture
+Controller
+   ↓
+Service
+   ↓
+Repository
+   ↓
+PostgreSQL
+Layers
+Controller
 
-Run backend (IntelliJ or terminal):
+Handles HTTP requests and API responses.
+
+Service
+
+Contains business rules and application flow.
+
+Repository
+
+Communicates with PostgreSQL using JPA/Hibernate.
+
+🧠 Technical Evolution
+
+Nature Tech originally started as a frontend-oriented e-commerce prototype and later evolved into a complete full-stack application with a modern Java backend architecture.
+
+The project migration included:
+
+Transition from mock data to real API integration
+PostgreSQL relational database integration
+Dockerized infrastructure
+Backend redesign with Spring Boot
+Layered architecture implementation
+Dynamic product rendering
+Removal of hardcoded frontend product data
+🚀 Running Locally
+Requirements
+Node.js
+Java JDK 17+
+Docker
+Backend
+cd backend-java
+
+docker compose up -d
 
 .\mvnw.cmd spring-boot:run
 
@@ -110,31 +155,40 @@ API available at:
 http://localhost:8080/products
 Frontend
 cd frontend
+
 npm install
+
 npm run dev
 
-Access:
+Frontend available at:
 
 http://localhost:3000
-🌐 Deploy
+📋 Roadmap
+In Progress
+JWT authentication
+Frontend product creation flow
+Checkout system
+Admin panel
+Improved API validation
+Frontend state optimization
+Planned
+Order management
+User accounts
+Payment integration
+Automated testing
+Deployment pipeline improvements
+🌐 Deployment
 
-Frontend deployed on Vercel
-👉 https://ecommerce-project-abt7.vercel.app/
+Frontend deployed on Vercel:
 
-📄 License
-
-MIT License
+Nature Tech Live Demo
 
 👨‍💻 Author
 
 Paulo Emilio de Toledo Jr
-LinkedIn: www.linkedin.com/in/pauloemilio-tech 
 
+LinkedIn
 GitHub
+📄 License
 
-🧠 O que esse README comunica agora
-✔ projeto fullstack real
-✔ integração frontend ↔ backend
-✔ uso de banco relacional
-✔ arquitetura moderna
-✔ evolução de Node → Java (muito forte)
+MIT License
