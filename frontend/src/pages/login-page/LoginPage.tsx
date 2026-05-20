@@ -1,10 +1,11 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import { useThemeContext } from '../../contexts/ThemeContext'; 
-import AppAppBar from '../home-page/components/AppAppBar';
+import { useThemeContext } from '../../contexts/ThemeContext';
 import Footer from '../home-page/components/Footer';
 import {
+    Alert,
     Box,
+    CircularProgress,
     Container,
     Typography,
     Button,
@@ -14,8 +15,9 @@ import {
     styled,
     Stack,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import HeaderExternal from '../components-others/HeaderExternal';
+import { useAuth } from '../../contexts/AuthContext';
 
 const StyledContentBox = styled(Box)(({ theme }) => ({
     borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
@@ -33,11 +35,29 @@ const StyledContentBox = styled(Box)(({ theme }) => ({
 export default function LoginPage(props: { disableCustomTheme?: boolean }) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const { mode } = useThemeContext(); 
+    const [error, setError] = React.useState('');
+    const [submitting, setSubmitting] = React.useState(false);
+    const { mode } = useThemeContext();
+    const auth = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const from = (location.state as any)?.from?.pathname || '/' ;
+
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log('Login attempt:', { email, password });
+        setError('');
+        setSubmitting(true);
+
+        try {
+            await auth.login(email, password);
+            navigate(from, { replace: true });
+        } catch (loginError: any) {
+            const message = loginError?.response?.data?.message || loginError?.message || 'Falha ao entrar. Tente novamente.';
+            setError(String(message));
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     return (
@@ -73,6 +93,9 @@ export default function LoginPage(props: { disableCustomTheme?: boolean }) {
 
                         <form onSubmit={handleSubmit}>
                             <Stack spacing={3}>
+                                {error && (
+                                    <Alert severity="error">{error}</Alert>
+                                )}
                                 <TextField
                                     label="Email"
                                     type="email"
@@ -132,9 +155,17 @@ export default function LoginPage(props: { disableCustomTheme?: boolean }) {
                                     variant="contained"
                                     size="large"
                                     fullWidth
+                                    disabled={submitting || auth.loading}
                                     sx={{ mt: 2 }}
                                 >
-                                    Entrar
+                                    {submitting || auth.loading ? (
+                                        <>
+                                            <CircularProgress size={20} color="inherit" sx={{ mr: 1 }} />
+                                            Entrando...
+                                        </>
+                                    ) : (
+                                        'Entrar'
+                                    )}
                                 </Button>
                             </Stack>
                         </form>

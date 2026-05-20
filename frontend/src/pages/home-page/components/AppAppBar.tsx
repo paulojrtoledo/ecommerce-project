@@ -15,6 +15,8 @@ import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
 import Logo from './Logo';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useThemeContext } from '../../../contexts/ThemeContext';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -34,9 +36,16 @@ export default function AppAppBar() {
   const [open, setOpen] = React.useState(false);
 
   const { toggleColorMode, mode } = useThemeContext();
+  const { isAuthenticated, isAdmin, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
   };
 
   return (
@@ -118,9 +127,8 @@ export default function AppAppBar() {
             <IconButton
               color="inherit"
               size="small"
-              component="a"
-              href="/favoritos"
-              rel="noopener noreferrer"
+              component={RouterLink}
+              to="/favoritos"
               sx={{
                 color: 'white',
                 '&:hover': {
@@ -135,23 +143,47 @@ export default function AppAppBar() {
               variant="text"
               color="info"
               size="small"
-              component="a"
-              href="/meu-carrinho"
-              rel="noopener noreferrer"
+              component={RouterLink}
+              to="/meu-carrinho"
+              sx={{ color: 'text.primary' }}
             >
               Carrinho
             </Button>
 
-            <Button
-              color="primary"
-              variant="contained"
-              size="small"
-              component="a"
-              href="/login"
-              rel="noopener noreferrer"
-            >
-              Entrar
-            </Button>
+            {isAuthenticated ? (
+              <>
+                {isAdmin && (
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    size="small"
+                    component={RouterLink}
+                    to="/admin/products"
+                    sx={{ color: 'text.primary' }}
+                  >
+                    Admin
+                  </Button>
+                )}
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  size="small"
+                  onClick={handleLogout}
+                >
+                  Sair
+                </Button>
+              </>
+            ) : (
+              <Button
+                color="primary"
+                variant="contained"
+                size="small"
+                component={RouterLink}
+                to="/login"
+              >
+                Entrar
+              </Button>
+            )}
 
             <ColorModeIconDropdown mode={mode} toggleColorMode={toggleColorMode} />
           </Box>

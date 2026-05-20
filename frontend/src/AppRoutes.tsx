@@ -5,8 +5,8 @@ import ProductsPage from './pages/products-page/ProductsPage';
 import CartPage from './pages/cart-page/CartPage';
 import FavoritesPage from './pages/favorites-page/FavoritesPage';
 import LoginPage from './pages/login-page/LoginPage';
-
-<Route path="/login" element={<LoginPage />} />
+import AdminProductsPage from './pages/admin-products/AdminProductsPage';
+import AdminRoute from './components/AdminRoute';
 
 function AppRoutes() {
     return(
@@ -17,6 +17,14 @@ function AppRoutes() {
                 <Route path="/meu-carrinho" element={<CartPage />} />
                 <Route path="/favoritos" element={<FavoritesPage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route
+                    path="/admin/products"
+                    element={
+                        <AdminRoute>
+                            <AdminProductsPage />
+                        </AdminRoute>
+                    }
+                />
             </Routes>
         </BrowserRouter>
     );

@@ -15,6 +15,8 @@ import ColorModeIconDropdown from '../shared-theme/ColorModeIconDropdown';
 import Logo from '../home-page/components/Logo';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useThemeContext } from '../../contexts/ThemeContext';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -33,9 +35,16 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 export default function HeaderExternal() {
   const [open, setOpen] = React.useState(false);
   const { mode, toggleColorMode } = useThemeContext();
+  const { isAuthenticated, isAdmin, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
   };
 
   return (
@@ -122,9 +131,8 @@ export default function HeaderExternal() {
             <IconButton
               color="inherit"
               size="small"
-              component="a"
-              href="/favoritos"
-              rel="noopener noreferrer"
+              component={RouterLink}
+              to="/favoritos"
               sx={{
                 color: 'white',
                 '&:hover': {
@@ -139,24 +147,47 @@ export default function HeaderExternal() {
               variant="text"
               color="info"
               size="small"
-              component="a"
-              href="/meu-carrinho"
-              rel="noopener noreferrer"
+              component={RouterLink}
+              to="/meu-carrinho"
               sx={{ color: 'text.primary' }}
             >
               Carrinho
             </Button>
 
-            <Button
-              color="primary"
-              variant="contained"
-              size="small"
-              component="a"
-              href="/login"
-              rel="noopener noreferrer"
-            >
-              Entrar
-            </Button>
+            {isAuthenticated ? (
+              <>
+                {isAdmin && (
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    size="small"
+                    component={RouterLink}
+                    to="/admin/products"
+                    sx={{ color: 'text.primary' }}
+                  >
+                    Admin
+                  </Button>
+                )}
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  size="small"
+                  onClick={handleLogout}
+                >
+                  Sair
+                </Button>
+              </>
+            ) : (
+              <Button
+                color="primary"
+                variant="contained"
+                size="small"
+                component={RouterLink}
+                to="/login"
+              >
+                Entrar
+              </Button>
+            )}
 
             <ColorModeIconDropdown mode={mode} toggleColorMode={toggleColorMode} />
           </Box>
@@ -220,20 +251,28 @@ export default function HeaderExternal() {
                   <FavoriteIcon />
                 </IconButton>
 
-                <MenuItem
-                  component="a"
-                  href="/login"
-                  rel="noopener noreferrer"
-                  sx={{ p: 0 }}
-                >
-                  <Button color="primary" variant="contained" fullWidth>
-                    Entrar
-                  </Button>
-                </MenuItem>
+                {isAuthenticated ? (
+                  <MenuItem sx={{ p: 0 }}>
+                    <Button color="secondary" variant="contained" fullWidth onClick={() => { handleLogout(); setOpen(false); }}>
+                      Sair
+                    </Button>
+                  </MenuItem>
+                ) : (
+                  <MenuItem
+                    component={RouterLink}
+                    to="/login"
+                    onClick={toggleDrawer(false)}
+                    sx={{ p: 0 }}
+                  >
+                    <Button color="primary" variant="contained" fullWidth>
+                      Entrar
+                    </Button>
+                  </MenuItem>
+                )}
 
                 <MenuItem
-                  component="a"
-                  href="/meu-carrinho"
+                  component={RouterLink}
+                  to="/meu-carrinho"
                   onClick={toggleDrawer(false)}
                   sx={{ p: 0 }}
                 >
