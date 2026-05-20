@@ -17,10 +17,10 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     public List<CategoryResponseDTO> findAll() {
-        return categoryRepository.findAll()
-                .stream()
-                .map(CategoryResponseDTO::from)
-                .toList();
+        return categoryRepository.findByActiveTrue()
+            .stream()
+            .map(CategoryResponseDTO::from)
+            .toList();
     }
 
     public CategoryResponseDTO create(CategoryRequestDTO dto) {
